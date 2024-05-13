@@ -35,6 +35,7 @@
 /.idea
 /cmake-build-debug
 CMakeLists.txt
+/.vscode
 
 # Salvataggi partita
 /parite
