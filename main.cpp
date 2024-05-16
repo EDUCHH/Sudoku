@@ -1,23 +1,23 @@
 #include <iostream>
 #include <string>
-#include <cstdlib>
+#include <stdlib.h>
 
 using namespace std;
 
-const int dim=9;
-const int numPartiteMax=100;
+const int DIM = 9;
+const int NUMPARTITEMAX=100;
 
-struct partita{
-    int mat[dim][dim]; //matrice del sudoku
+struct Partita {
+    int mat[DIM][DIM]; // matrice del sudoku
     string inizioPartita; // DAY/MONTH/YEAR hh:mm:ss
-    int tempoTrascorso; //misurato in secondi
-    bool giocatore; //true = player --- false = computer
-    bool stato; //true = in corso --- false = terminata
+    int tempoTrascorso; // misurato in secondi
+    bool giocatore; // true = player --- false = computer
+    bool stato; // true = in corso --- false = terminata
 };
 
-//menu di gioco
-void menu(){
-    int min=1, max=4, opzione;
+// menu di gioco
+void menu() {
+    int min = 1, max = 4, opzione;
 
     cout << "1. Avvia una partita \n";
     cout << "2. Carica una partita \n";
@@ -25,36 +25,45 @@ void menu(){
     cout << "4. Storico delle partite \n";
     cout << "5. Esci dal gioco \n";
 
-    do{
+    do {
         cout << "Inserisci un'opzione: ";
         cin >> opzione;
 
-        if(opzione < min || opzione > max){
+        if (opzione < min || opzione > max){
             cout << "Input errato! \n";
         }
-    }while(opzione < min || opzione > max);
+    } while (opzione < min || opzione > max);
 
     switch (opzione) {
         case 1:
-            //Avvia una partita
+            // Avvia una partita
 
             break;
         case 2:
-            //Carica una partita
+            // Carica una partita
             break;
         case 3:
-            //Vedere le regole
+            // Vedere le regole
             break;
         case 4:
-            //Esci dal gioco
+            // Esci dal gioco
             exit(EXIT_SUCCESS);
             break;
     }
 }
 
+// serve per inizializzare la matrice. mettendo tutti gli elementi a 0.
+// verra chiamata prima della generazione di sudoku.
+void initMatrice(int mat[DIM][DIM]) {
+    for (int i = 0; i < DIM; i++) {
+        for (int j = 0; j < DIM; j++) {
+            mat[i][j] = 0;
+        }
+    }
+}
 
 int main() {
-    int sudoku[9][9];
+    int mat[9][9];
 
     int numero_partite;
 
