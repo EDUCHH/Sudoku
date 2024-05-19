@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -146,7 +145,7 @@ int generaNumero(int mat[DIM][DIM], int rig, int col) {
 
     do {
         num = rand() % 9 + 1;
-    } while (!controlloNumeroValido(mat, rig, col, num));
+    } while (sudokuValido(mat));
 
     return num;
 }
