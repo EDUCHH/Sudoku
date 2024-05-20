@@ -1,30 +1,30 @@
 #include <cstdlib>
 #include <utility>
 
-using namespace std;
+const int DIM2 = 9;
 
-const int DIM = 9;
+using namespace std;
 
 // Inizializza il sudoku con zeri
 // verra chiamata prima della generazione di sudoku.
-void initMatrice(int mat[DIM][DIM]) {
-    for (int i = 0; i < DIM; i++) {
-        for (int j = 0; j < DIM; j++) {
+void initMatrice(int mat[DIM2][DIM2]) {
+    for (int i = 0; i < DIM2; i++) {
+        for (int j = 0; j < DIM2; j++) {
             mat[i][j] = 0;
         }
     }
 }
 
-bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
+bool controlloNumero(int mat[DIM2][DIM2], int rig, int col, int num) {
     // controllo riga
-    for (int i = 0; i < DIM; i++) {
+    for (int i = 0; i < DIM2; i++) {
         if (mat[rig][i] == num) {
             return false;
         }
     }
 
     // controllo colonna
-    for (int i = 0; i < DIM; i++) {
+    for (int i = 0; i < DIM2; i++) {
         if (mat[i][col] == num) {
             return false;
         }
@@ -51,12 +51,12 @@ bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
 }
 
 // utilizza il backtracking per cercare di generare il sudoku.
-bool generaSudoku(int mat[DIM][DIM]) {
+bool generaSudoku(int mat[DIM2][DIM2]) {
     int rig, col;
     bool matriceVuota = false;
 
-    for (rig = 0; rig < DIM; rig++) {
-        for (col = 0; col < DIM; col++) {
+    for (rig = 0; rig < DIM2; rig++) {
+        for (col = 0; col < DIM2; col++) {
             if (mat[rig][col] == 0) {
                 matriceVuota = true;
                 break;
@@ -71,8 +71,8 @@ bool generaSudoku(int mat[DIM][DIM]) {
         return true;
     }
 
-    int numeri[DIM] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    for (int i = 0; i < DIM; i++) {
+    int numeri[DIM2] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    for (int i = 0; i < DIM2; i++) {
         int j = rand() % 9;
         swap(numeri[i], numeri[j]);
     }
@@ -93,9 +93,9 @@ bool generaSudoku(int mat[DIM][DIM]) {
 }
 
 //copia la matrice soluzioneSudoku in mat
-void copiaMatrice(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]) {
-    for(int i = 0; i < DIM; i++) {
-        for(int j = 0; j < DIM; j++){
+void copiaMatrice(int mat[DIM2][DIM2], int soluzioneSudoku[DIM2][DIM2]) {
+    for(int i = 0; i < DIM2; i++) {
+        for(int j = 0; j < DIM2; j++){
             mat[i][j] = soluzioneSudoku[i][j];
         }
     }

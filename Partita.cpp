@@ -1,3 +1,9 @@
+#include <iostream>
+
+using namespace  std;
+
+const int DIM3 = 9;
+
 int sceltaGiocatore(){
     int min=0, max = 1;
     int giocatore;
@@ -34,9 +40,9 @@ bool exitPartita(){
     }
 }
 
-bool partitaTerminata(int mat[DIM][DIM]){
-    for(int i=0; i < DIM; i++){
-        for(int p=0; p < DIM; p++){
+bool partitaTerminata(int mat[DIM3][DIM3]){
+    for(int i=0; i < DIM3; i++){
+        for(int p=0; p < DIM3; p++){
             if(mat[i][p] == 0) return false;
         }
     }
@@ -45,7 +51,7 @@ bool partitaTerminata(int mat[DIM][DIM]){
 }
 //FALSE: SUDOKU NON COMPLETO ----- TRUE: SUDOKU COMPLETO
 
-void inputMossa(int mat[DIM][DIM]){
+void inputMossa(int mat[DIM3][DIM3]){
     int numero;
     int min, max;
     bool restart;
@@ -86,9 +92,9 @@ void inputMossa(int mat[DIM][DIM]){
 }
 //POS[0]: RIGA ----- POS[1]: COLONNA
 
-bool verificaVittoria(int soluzioneSudoku[DIM][DIM], int mat[DIM][DIM]){
-    for(int i=0; i < DIM; i++){
-        for(int p=0; p < DIM; p++){
+bool verificaVittoria(int soluzioneSudoku[DIM3][DIM3], int mat[DIM3][DIM3]){
+    for(int i=0; i < DIM3; i++){
+        for(int p=0; p < DIM3; p++){
             if(soluzioneSudoku[i][p] != mat[i][p]) {
                 return false;
             }

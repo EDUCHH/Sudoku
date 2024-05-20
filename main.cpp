@@ -4,10 +4,11 @@
 #include <cstdlib>
 #include <ctime>
 #include "generaSudoku.cpp"
-#include "Partita.ccp"
+#include "Partita.cpp"
+
+const int DIM = 9;
 
 using namespace std;
-
 
 //cose
 void stampaSudoku(int mat[DIM][DIM]){
@@ -47,23 +48,23 @@ void avviaPartita(){
             }
         }
         if(verificaVittoria(soluzioneSudoku, mat)){
-            int pariteVinte, partitePerse;
+            int partiteVinte, partitePerse;
             ifstream fileInput("./Salvataggio/storico");
             fileInput >> partiteVinte >> partitePerse;
             fileInput.close();
 
-            pariteVinte++;
+            partiteVinte++;
 
             ofstream fileOutput("./Salvataggio/storico");
             fileOutput << partiteVinte << '\n' << partitePerse;
         } //+1 partite vinte
         else{
-            int pariteVinte, partitePerse;
+            int partiteVinte, partitePerse;
             ifstream fileInput("./Salvataggio/storico");
             fileInput >> partiteVinte >> partitePerse;
             fileInput.close();
 
-            paritePerse++;
+            partitePerse++;
 
             ofstream fileOutput("./Salvataggio/storico");
             fileOutput << partiteVinte << '\n' << partitePerse;
