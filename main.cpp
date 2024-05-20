@@ -25,7 +25,7 @@ void stampaSudoku(int mat[DIM][DIM]){
 }
 
 //partita
-void avviaPartita(){
+void avviaPartita() {
     int soluzioneSudoku[DIM][DIM];
 
     initMatrice(soluzioneSudoku);
@@ -36,16 +36,16 @@ void avviaPartita(){
     copiaMatrice(mat, soluzioneSudoku);
     //cavaNumeri(mat);
 
-    if(sceltaGiocatore()){
+    if (sceltaGiocatore()) {
         //player
-        while(!partitaTerminata(mat)){
+        while (!partitaTerminata(mat)) {
             stampaSudoku(mat);
             inputMossa(mat);
-            if(exitPartita()){
+            if (exitPartita()) {
                 return;
             }
         }
-        if(verificaVittoria(soluzioneSudoku, mat)){
+        if (verificaVittoria(soluzioneSudoku, mat)) {
             int partiteVinte, partitePerse;
             ifstream fileInput("./Salvataggio/storico");
             fileInput >> partiteVinte >> partitePerse;
@@ -56,7 +56,7 @@ void avviaPartita(){
             ofstream fileOutput("./Salvataggio/storico");
             fileOutput << partiteVinte << '\n' << partitePerse;
         } //+1 partite vinte
-        else{
+        else {
             int partiteVinte, partitePerse;
             ifstream fileInput("./Salvataggio/storico");
             fileInput >> partiteVinte >> partitePerse;
@@ -67,12 +67,12 @@ void avviaPartita(){
             ofstream fileOutput("./Salvataggio/storico");
             fileOutput << partiteVinte << '\n' << partitePerse;
         } //+1 partite perse
-    } else{
+    } else {
         //cpu
     }
 }
-int menu(){
-    int min=1, max=6, opzione;
+int menu() {
+    int min = 1, max = 6, opzione;
 
     cout << "1. Avvia una partita \n";
     cout << "2. Carica una partita \n";
@@ -85,16 +85,16 @@ int menu(){
         cout << "Inserisci un'opzione: ";
         cin >> opzione;
 
-        if(opzione < min || opzione > max){
+        if (opzione < min || opzione > max) {
             cout << "Input errato! \n";
         }
-    }while(opzione < min || opzione > max);
+    } while (opzione < min || opzione > max);
 
     return opzione;
 }
 
-int main(){
-    while(true){
+int main () {
+    while (true) {
         int opzione = menu();
 
         switch (opzione) {
