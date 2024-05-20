@@ -46,26 +46,40 @@ void avviaPartita() {
             }
         }
         if (verificaVittoria(soluzioneSudoku, mat)) {
-            int partiteVinte, partitePerse;
             ifstream fileInput("./Salvataggio/storico");
-            fileInput >> partiteVinte >> partitePerse;
-            fileInput.close();
+            if(fileInput.is_open()) {
+                int partiteVinte, partitePerse;
+                fileInput >> partiteVinte >> partitePerse;
+                fileInput.close();
 
-            partiteVinte++;
+                partiteVinte++;
 
-            ofstream fileOutput("./Salvataggio/storico");
-            fileOutput << partiteVinte << '\n' << partitePerse;
+                ofstream fileOutput("./Salvataggio/storico");
+                fileOutput << partiteVinte << '\n' << partitePerse;
+                fileOutput.close();
+            } else {
+                ofstream fileOutput("./Salvataggio/storico");
+                fileOutput << "0 \n 0";
+                fileOutput.close();
+            }
         } //+1 partite vinte
         else {
-            int partiteVinte, partitePerse;
             ifstream fileInput("./Salvataggio/storico");
-            fileInput >> partiteVinte >> partitePerse;
-            fileInput.close();
+            if(fileInput.is_open()) {
+                int partiteVinte, partitePerse;
+                fileInput >> partiteVinte >> partitePerse;
+                fileInput.close();
 
-            partitePerse++;
+                partitePerse++;
 
-            ofstream fileOutput("./Salvataggio/storico");
-            fileOutput << partiteVinte << '\n' << partitePerse;
+                ofstream fileOutput("./Salvataggio/storico");
+                fileOutput << partiteVinte << '\n' << partitePerse;
+                fileOutput.close();
+            } else {
+                ofstream fileOutput("./Salvataggio/storico");
+                fileOutput << "0 \n 0";
+                fileOutput.close();
+            }
         } //+1 partite perse
     } else {
         //cpu
