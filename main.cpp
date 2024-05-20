@@ -1,8 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <string>
-#include <cstdlib>
-#include <ctime>
 #include "generaSudoku.cpp"
 #include "Partita.cpp"
 
@@ -42,6 +39,7 @@ void avviaPartita(){
     if(sceltaGiocatore()){
         //player
         while(!partitaTerminata(mat)){
+            stampaSudoku(mat);
             inputMossa(mat);
             if(exitPartita()){
                 return;
