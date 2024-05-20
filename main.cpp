@@ -67,7 +67,7 @@ int main() {
     srand(time(NULL));
 
     int soluzioneSudoku[DIM][DIM];
-    int matGioco[DIM][DIM];
+    int mat[DIM][DIM];
     
     initMatrice(soluzioneSudoku);
     generaSudoku(soluzioneSudoku);
