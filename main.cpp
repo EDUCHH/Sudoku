@@ -1,3 +1,5 @@
+#include <cstddef>
+#include <cstdlib>
 #include <iostream>
 #include <stddef.h>
 #include <stdlib.h>
@@ -152,6 +154,7 @@ bool generaSudoku(int mat[DIM][DIM]) {
 
 int main() {
     int mat[9][9];
+    srand(time(NULL));
 
     int numero_partite;
 
