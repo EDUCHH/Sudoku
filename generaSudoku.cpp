@@ -12,7 +12,7 @@ void initMatrice(int mat[DIM][DIM]) {
         for (int j = 0; j < DIM; j++) {
             mat[i][j] = 0;
         }
-    }    
+    }
 }
 
 bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
