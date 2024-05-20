@@ -1,11 +1,12 @@
 #include <iostream>
-#include <string>
+#include <stddef.h>
 #include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
 const int DIM = 9;
-const int NUMPARTITEMAX=100;
+const int NUMPARTITEMAX = 100;
 
 struct Partita {
     int mat[DIM][DIM]; // matrice del sudoku
@@ -17,7 +18,7 @@ struct Partita {
 
 // menu di gioco
 void menu() {
-    int min = 1, max = 4, opzione;
+    int min = 1, max = 5, opzione;
 
     cout << "1. Avvia una partita \n";
     cout << "2. Carica una partita \n";
@@ -52,17 +53,27 @@ void menu() {
     }
 }
 
-// serve per inizializzare la matrice. mettendo tutti gli elementi a 0.
+void stampaSudoku(int mat[DIM][DIM]) {
+    for (int i = 0; i < DIM; i++) {
+        for (int j = 0; j < DIM; j++) {
+            cout << mat[i][j] << " ";
+        }
+
+        cout << endl;
+    }
+}
+
+// Inizializza il sudoku con zeri
 // verra chiamata prima della generazione di sudoku.
 void initMatrice(int mat[DIM][DIM]) {
     for (int i = 0; i < DIM; i++) {
         for (int j = 0; j < DIM; j++) {
             mat[i][j] = 0;
         }
-    }
+    }    
 }
 
-bool controlloNumeroValido(int mat[DIM][DIM], int rig, int col, int num) {
+bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
     // controllo riga
     for (int i = 0; i < DIM; i++) {
         if (mat[rig][i] == num) {
@@ -98,70 +109,56 @@ bool controlloNumeroValido(int mat[DIM][DIM], int rig, int col, int num) {
 }
 
 // utilizza il backtracking per cercare di risolvere il sudoku.
-bool sudokuValido(int mat[DIM][DIM]) {
+bool generaSudoku(int mat[DIM][DIM]) {
+    int rig, col;
+    bool matriceVuota = false;
 
-    // cicli for che iterano per l'intero sudoku
-    for (int i = 0; i < DIM; i++) {
-        for (int j = 0; j < DIM; j++) {
-
-            // se ce una casella vuota (0),
-            // viene fatto un altro ciclo e 
-            // viene controllato se il numero e valido o no
-            if (mat[i][j] == 0) {
-                for (int num = 1; num < DIM; num++) {
-                    if (controlloNumeroValido(mat, i, j, num)) {
-
-                        // se il numero e valido allora viene usato
-                        mat[i][j] = num;
-
-                        // con il nuovo numero si cerca di risolvere le caselle successive
-                        // si puo chiamare la funzione stessa per continuare.
-                        if (sudokuValido(mat)) {
-
-                            // se riesce a risolvere il sudoku allora vuol dire che il numero e valido
-                            return true;
-                        }
-
-                        // il numero non e valido
-                        // quindi rimettere la casella a 0
-                        mat[i][j] = 0;
-                    }
-                }
-
-                // nessuno dei numeri e valido
-                // quindi si torna all'indietro per provare altri numeri
-                return false;
-
+    for (rig = 0; rig < DIM; rig++) {
+        for (col = 0; col < DIM; col++) {
+            if (mat[rig][col] == 0) {
+                matriceVuota = true;
+                break;
             }
         }
-    }
-
-    // la soluzione viene trovata
-    return true;
-}
-
-int generaNumero(int mat[DIM][DIM], int rig, int col) {
-    int num;
-
-    do {
-        num = rand() % 9 + 1;
-    } while (sudokuValido(mat));
-
-    return num;
-}
-
-void generaSudoku(int mat[DIM][DIM]) {
-    for (int i = 0; i < DIM; i++) {
-        for (int j = 0; j < DIM; j++) {
-            int num = generaNumero(mat, i, j);
+        if (matriceVuota) {
+            break;
         }
     }
+
+    if (!matriceVuota) {
+        return true;
+    }
+
+    int numeri[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    for (int i = 0; i < DIM; i++) {
+        int j = rand() % 9;
+        swap(numeri[i], numeri[j]);
+    }
+
+    for (int i = 0; i < 9; i++) {
+        if (controlloNumero(mat, rig, col, numeri[i])) {
+            mat[rig][col] = numeri[i];
+
+            if (generaSudoku(mat)) {
+                return true;
+            }
+
+            mat[rig][col] = 0;
+        }
+    }
+
+    return false;
 }
 
 int main() {
     int mat[9][9];
 
     int numero_partite;
+
+    initMatrice(mat);
+    generaSudoku(mat);
+
+    stampaSudoku(mat);
 
 
     return 0;
