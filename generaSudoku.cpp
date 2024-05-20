@@ -93,10 +93,10 @@ bool generaSudoku(int mat[DIM][DIM]) {
 }
 
 //copia la matrice soluzioneSudoku in mat
-void copiaMatrice(int mat[DIM][DIM], soluzioneSudoku[DIM][DIM]){
-    for(int i=0; i < DIM; i++){
-        for(int p=0; p < DIM; p++){
-            mat[i][p] = soluzioneSudoku[i][p];
+void copiaMatrice(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]) {
+    for(int i = 0; i < DIM; i++) {
+        for(int j = 0; j < DIM; j++){
+            mat[i][j] = soluzioneSudoku[i][j];
         }
     }
 }
