@@ -37,6 +37,3 @@
 CMakeLists.txt
 /.vscode
 /testing
-
-# Salvataggi partita
-/parite

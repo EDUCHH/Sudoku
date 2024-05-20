@@ -91,3 +91,12 @@ bool generaSudoku(int mat[DIM][DIM]) {
 
     return false;
 }
+
+//copia la matrice soluzioneSudoku in mat
+void copiaMatrice(int mat[DIM][DIM], soluzioneSudoku[DIM][DIM]){
+    for(int i=0; i < DIM; i++){
+        for(int p=0; p < DIM; p++){
+            mat[i][p] = soluzioneSudoku[i][p];
+        }
+    }
+}
