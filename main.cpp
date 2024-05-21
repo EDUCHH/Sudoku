@@ -2,6 +2,7 @@
 #include <fstream>
 #include "generaSudoku.cpp"
 #include "Partita.cpp"
+#include "gestioneFile.cpp"
 
 const int DIM = 9;
 
@@ -44,43 +45,9 @@ void avviaPartita() {
             if (exitPartita()) {
                 return;
             }
+
         }
-        if (verificaVittoria(soluzioneSudoku, mat)) {
-            ifstream fileInput("./Salvataggio/storico");
-            if(fileInput.is_open()) {
-                int partiteVinte, partitePerse;
-                fileInput >> partiteVinte >> partitePerse;
-                fileInput.close();
-
-                partiteVinte++;
-
-                ofstream fileOutput("./Salvataggio/storico");
-                fileOutput << partiteVinte << '\n' << partitePerse;
-                fileOutput.close();
-            } else {
-                ofstream fileOutput("./Salvataggio/storico");
-                fileOutput << "0 \n 0";
-                fileOutput.close();
-            }
-        } //+1 partite vinte
-        else {
-            ifstream fileInput("./Salvataggio/storico");
-            if(fileInput.is_open()) {
-                int partiteVinte, partitePerse;
-                fileInput >> partiteVinte >> partitePerse;
-                fileInput.close();
-
-                partitePerse++;
-
-                ofstream fileOutput("./Salvataggio/storico");
-                fileOutput << partiteVinte << '\n' << partitePerse;
-                fileOutput.close();
-            } else {
-                ofstream fileOutput("./Salvataggio/storico");
-                fileOutput << "0 \n 0";
-                fileOutput.close();
-            }
-        } //+1 partite perse
+        aggiornaStorico(verificaVittoria(soluzioneSudoku, mat));
     } else {
         //cpu
     }
@@ -108,6 +75,8 @@ int menu() {
 }
 
 int main () {
+    creazioneFile(); //verifica se ci sono i file e in caso li crea
+
     while (true) {
         int opzione = menu();
 
