@@ -44,7 +44,7 @@ void avviaPartita() {
             if (exitPartita()) {
                 return;
             }
-
+            salvaPartita(mat, soluzioneSudoku);
         }
         aggiornaStorico(verificaVittoria(soluzioneSudoku, mat));
     } else {

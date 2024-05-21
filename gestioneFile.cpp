@@ -8,8 +8,11 @@ void creazioneFile(){
         ofstream fileRegole("./Salvataggio/regole");
         fileRegole.close();
 
-        ofstream filePartita("./Salvataggio/partita");
-        filePartita.close();
+        ofstream fileSudoku("./Salvataggio/sudoku");
+        fileSudoku.close();
+
+        ofstream fileSoluzioneSudoku("./Salvataggio/soluzioneSudoku");
+        fileSoluzioneSudoku.close();
 
         ofstream fileStorico("./Salvataggio/storico");
         fileStorico << "0\n0";
@@ -39,4 +42,26 @@ void aggiornaStorico(bool soluzione){
     ofstream fileOutput("./Salvataggio/storico");
     fileOutput << partiteVinte << '\n' << partitePerse;
     fileOutput.close();
+}
+
+void salvaPartita(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
+    //output mat
+    ofstream fileSudoku("./Salvataggio/sudoku");
+    for(int i=0; i < DIM; i++){
+        for(int p=0; p < DIM; p++){
+            fileSudoku << mat[i][p] << " ";
+        }
+        fileSudoku << '\n';
+    }
+    fileSudoku.close();
+
+    //output soluzioneSudoku
+    ofstream fileSoluzioneSudoku("./Salvataggio/soluzioneSudoku");
+    for(int i=0; i < DIM; i++){
+        for(int p=0; p < DIM; p++){
+            fileSoluzioneSudoku << soluzioneSudoku[i][p] << " ";
+        }
+        fileSoluzioneSudoku << '\n';
+    }
+    fileSoluzioneSudoku.close();
 }
