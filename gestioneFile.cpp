@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iostream>
 
 void creazioneFile(){
     ifstream fileInput("./Salvataggio/regole");
@@ -27,9 +28,11 @@ void aggiornaStorico(bool soluzione){
 
     if(soluzione) {
         partiteVinte++;
+        cout << "Il giocatore ha vinto!\n";
     }
     else {
         partitePerse++;
+        cout << "Il giocatore ha perso!\n";
     }
     fileInput.close();
 
