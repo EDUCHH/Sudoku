@@ -1,8 +1,7 @@
 #include <iostream>
+#include "costanti.h"
 
 using namespace std;
-
-const int DIM3 = 9;
 
 int sceltaGiocatore() {
     int min = 0, max = 1;
@@ -40,9 +39,9 @@ bool exitPartita() {
     }
 }
 
-bool partitaTerminata(int mat[DIM3][DIM3]) {
-    for (int i = 0; i < DIM3; i++) {
-        for (int p = 0; p < DIM3; p++) {
+bool partitaTerminata(int mat[DIM][DIM]) {
+    for (int i = 0; i < DIM; i++) {
+        for (int p = 0; p < DIM; p++) {
             if(mat[i][p] == 0) {
                 return false;
             }
@@ -53,7 +52,7 @@ bool partitaTerminata(int mat[DIM3][DIM3]) {
 }
 //FALSE: SUDOKU NON COMPLETO ----- TRUE: SUDOKU COMPLETO
 
-void inputMossa(int mat[DIM3][DIM3]) {
+void inputMossa(int mat[DIM][DIM]) {
     int numero;
     int min, max;
     bool restart;
@@ -92,9 +91,9 @@ void inputMossa(int mat[DIM3][DIM3]) {
 }
 //POS[0]: RIGA ----- POS[1]: COLONNA
 
-bool verificaVittoria(int soluzioneSudoku[DIM3][DIM3], int mat[DIM3][DIM3]) {
-    for (int i = 0; i < DIM3; i++) {
-        for (int j = 0; j < DIM3; j++) {
+bool verificaVittoria(int soluzioneSudoku[DIM][DIM], int mat[DIM][DIM]) {
+    for (int i = 0; i < DIM; i++) {
+        for (int j = 0; j < DIM; j++) {
             if (soluzioneSudoku[i][j] != mat[i][j]) {
                 return false;
             }

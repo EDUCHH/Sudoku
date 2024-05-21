@@ -3,8 +3,7 @@
 #include "generaSudoku.cpp"
 #include "Partita.cpp"
 #include "gestioneFile.cpp"
-
-const int DIM = 9;
+#include "costanti.h"
 
 using namespace std;
 
