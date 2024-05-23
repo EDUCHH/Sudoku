@@ -52,8 +52,8 @@ void salvaPartita(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     //output mat
     ofstream fileSudoku("sudoku.txt");
     for(int i=0; i < DIM; i++){
-        for(int p=0; p < DIM; p++){
-            fileSudoku << mat[i][p] << " ";
+        for(int j=0; j < DIM; j++){
+            fileSudoku << mat[i][j] << " ";
         }
         fileSudoku << '\n';
     }
@@ -62,8 +62,8 @@ void salvaPartita(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     //output soluzioneSudoku
     ofstream fileSoluzioneSudoku("soluzioneSudoku.txt");
     for(int i=0; i < DIM; i++){
-        for(int p=0; p < DIM; p++){
-            fileSoluzioneSudoku << soluzioneSudoku[i][p] << " ";
+        for(int j=0; j < DIM; j++){
+            fileSoluzioneSudoku << soluzioneSudoku[i][j] << " ";
         }
         fileSoluzioneSudoku << '\n';
     }
