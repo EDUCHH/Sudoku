@@ -100,6 +100,7 @@ int main () {
                 break;
             case 4:
                 //Vedere le regole
+                stampaRegole();
                 break;
             case 5:
                 //Storico delle partite

@@ -1,0 +1,7 @@
+Regole di Sudoku
+
+1. La griglia di gioco è composta da una griglia 9x9 suddivisa in 9 regioni 3x3.
+2. L'obiettivo è riempire la griglia in modo che ogni riga, ogni colonna e ogni regione 3x3 contenga tutti i numeri da 1 a 9 senza ripetizioni.
+3. Inizialmente, alcune caselle della griglia contengono numeri (dati) e il giocatore deve completare la griglia rispettando le regole.
+4. Durante il gioco, il giocatore inserisce i numeri mancanti nella griglia, uno alla volta, fino a completare l'intera griglia.
+5. Il Sudoku ha una sola soluzione e può essere risolto utilizzando la logica e l'eliminazione dei numeri possibili in base alle regole del gioco.

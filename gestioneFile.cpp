@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <string>
 #include "costanti.h"
 
 using namespace std;
@@ -67,4 +68,21 @@ void salvaPartita(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
         fileSoluzioneSudoku << '\n';
     }
     fileSoluzioneSudoku.close();
+}
+
+void stampaRegole() {
+    ifstream regole;
+    string testo;
+
+    regole.open("regole.txt");
+
+    cout << endl;
+    getline(regole, testo);
+    while (!regole.eof()) {
+        cout << testo << endl;
+        getline(regole, testo);
+    }
+    cout << endl;
+
+    regole.close();
 }
