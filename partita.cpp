@@ -24,15 +24,15 @@ bool exitPartita() {
     char input;
 
     do {
-        cout << "Vuoi uscire dalla partita? (S/n) \n";
+        cout << "Vuoi uscire dalla partita? (s/n) \n";
         cin >> input;
 
-        if (input != 'S' && input != 'n') {
+        if (input != 's' && input != 'n') {
             cout << "Input errato! \n";
         }
-    } while (input != 'S' && input != 'n');
+    } while (input != 's' && input != 'n');
 
-    if (input == 'S') {
+    if (input == 's') {
         return true;
     } else {
         return false;
