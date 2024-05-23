@@ -1,3 +1,6 @@
+#include <cstddef>
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include "generaSudoku.cpp"
 #include "partita.cpp"
@@ -28,12 +31,16 @@ void avviaPartita() {
     int soluzioneSudoku[DIM][DIM];
 
     initMatrice(soluzioneSudoku);
-    generaSudoku(soluzioneSudoku);
+    generaSudokuRisolto(soluzioneSudoku);
 
     //copia matrice
     int mat[DIM][DIM];
-    copiaMatrice(mat, soluzioneSudoku);
-    //cavaNumeri(mat);
+    int num = inputDifficolta();
+
+    do {
+        copiaMatrice(mat, soluzioneSudoku);
+        cavaNumeri(mat, num);
+    } while (!verificaSudoku(mat));
 
     if (sceltaGiocatore()) {
         //player
@@ -75,6 +82,7 @@ int menu() {
 
 int main () {
     creazioneFile(); //verifica se ci sono i file e in caso li crea
+    srand(time(NULL));
 
     while (true) {
         int opzione = menu();

@@ -50,7 +50,7 @@ bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
 }
 
 // utilizza il backtracking per cercare di generare il sudoku.
-bool generaSudoku(int mat[DIM][DIM]) {
+bool generaSudokuRisolto(int mat[DIM][DIM]) {
     int rig, col;
     bool matriceVuota = false;
 
@@ -80,7 +80,7 @@ bool generaSudoku(int mat[DIM][DIM]) {
         if (controlloNumero(mat, rig, col, numeri[i])) {
             mat[rig][col] = numeri[i];
 
-            if (generaSudoku(mat)) {
+            if (generaSudokuRisolto(mat)) {
                 return true;
             }
 
@@ -91,11 +91,74 @@ bool generaSudoku(int mat[DIM][DIM]) {
     return false;
 }
 
-//copia la matrice soluzioneSudoku in mat
-void copiaMatrice(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]) {
+// copia i numeri da mat2 a mat1
+void copiaMatrice(int mat1[DIM][DIM], int mat2[DIM][DIM]) {
     for(int i = 0; i < DIM; i++) {
         for(int j = 0; j < DIM; j++){
-            mat[i][j] = soluzioneSudoku[i][j];
+            mat1[i][j] = mat2[i][j];
         }
     }
+}
+
+void cavaNumeri(int mat[DIM][DIM], int num) {
+    do {
+        // genera numeri da 0 a 8
+        int rig = rand() % 9;
+        int col = rand() % 9;
+
+        if (mat[rig][col] != 0) {
+            mat[rig][col] = 0;
+            num--;
+        }
+    } while (num > 0);
+}
+
+
+bool risolviSudoku(int mat[DIM][DIM], int& soluzioni, bool continuaRicerca = false) {
+    int rig, col;
+    bool matriceVuota = false;
+
+    for (rig = 0; rig < DIM; rig++) {
+        for (col = 0; col < DIM; col++) {
+            if (mat[rig][col] == 0) {
+                matriceVuota = true;
+                break;
+            }
+        }
+        if (matriceVuota) {
+            break;
+        }
+    }
+
+    if (!matriceVuota) {
+        soluzioni++;
+        return soluzioni <= 1;
+    }
+
+    for (int num = 1; num <= DIM; num++) {
+        if (controlloNumero(mat, rig, col, num)) {
+            mat[rig][col] = num;
+
+            if (risolviSudoku(mat, soluzioni, continuaRicerca)) {
+                mat[rig][col] = 0;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+// il sudoku deve avere una sola soluzione. quindi questa funzione serve a verificare la validità di un sudoku in base al numero possibile di soluzioni
+// se le soluzioni sono più di uno allora il sudoku non è valudo
+bool verificaSudoku(int mat[DIM][DIM]) {
+    int copia[DIM][DIM];
+    int soluzioni = 0;
+
+    copiaMatrice(copia, mat);
+
+    risolviSudoku(copia, soluzioni);
+
+    return soluzioni == 1;
 }

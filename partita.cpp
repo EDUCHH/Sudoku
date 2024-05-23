@@ -103,3 +103,15 @@ bool verificaVittoria(int soluzioneSudoku[DIM][DIM], int mat[DIM][DIM]) {
     return true;
 }
 //TRUE: SUDOKU CORRETTO ----- FALSE: SUDOKU SBAGLIATO
+
+// funzione che chiede all'utente il numero di numeri da togliere dal sudoku completo
+int inputDifficolta() {
+    int numero;
+
+    do {
+        cout << "Inserisci la difficoltà di gioco [1 - 40]: ";
+        cin >> numero;
+    } while (numero <= 0 || numero >= 41);
+
+    return numero;
+}
