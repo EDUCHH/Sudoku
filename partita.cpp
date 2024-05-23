@@ -56,7 +56,7 @@ void inputMossa(int mat[DIM][DIM]) {
     int numero;
     int min, max;
     bool restart;
-    int pos[2];
+    int rig, col;
 
     //Input numero
     min = 1; max = 9;
@@ -74,22 +74,22 @@ void inputMossa(int mat[DIM][DIM]) {
     do {
         restart = false;
         cout << "Inserisci la posizione in cui vuoi inserire il numero (r-c): \n";
-        cin >> pos[0] /*righe*/ >> pos[1] /*colonne*/;
+        cin >> rig /*righe*/ >> col /*colonne*/;
 
-        if ((pos[0] < min || pos[0] > max) || (pos[1] < min || pos[1] > max)) { //controllo dati dentro alla tabella
+        if ((rig < min || rig > max) || (col < min || col > max)) { //controllo dati dentro alla tabella
             cout << "Input errato! \n";
             restart = true;
         } else {
-            if (mat[pos[0]][pos[1]] != 0) {
+            if (mat[rig][col] != 0) {
                 cout << "Cella gia' occupata! \n";
                 restart = true;
             } else {
-                mat[pos[0]][pos[1]] = numero;
+                mat[rig][col] = numero;
             }
         }
     } while (restart);
 }
-//POS[0]: RIGA ----- POS[1]: COLONNA
+//rig: RIGA ----- col: COLONNA
 
 bool verificaVittoria(int soluzioneSudoku[DIM][DIM], int mat[DIM][DIM]) {
     for (int i = 0; i < DIM; i++) {
