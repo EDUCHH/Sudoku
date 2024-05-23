@@ -12,14 +12,15 @@ void creazioneFile(){
         ofstream fileOutput;
         
         fileOutput.open("sudoku.txt");
-        fileSudoku.close();
+        fileOutput.close();
 
         fileOutput.open("soluzioneSudoku.txt");
-        fileSudoku.close();
+        fileOutput.close();
 
         fileOutput.open("storico.txt");
         fileOutput << "0\n0";
-        fileSudoku.close();
+        fileOutput.close();
+
     } else {
         fileInput.close();
     }

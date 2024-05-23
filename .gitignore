@@ -39,4 +39,6 @@ CMakeLists.txt
 /testing
 
 #Salvataggio
-/Salvataggio
+soluzioneSudoku.txt
+storico.txt
+sudoku.txt
