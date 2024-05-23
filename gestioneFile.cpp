@@ -6,12 +6,9 @@
 using namespace std;
 
 void creazioneFile(){
-    ifstream fileInput("./Salvataggio/regole");
+    ifstream fileInput("./Salvataggio/storicco");
 
     if(!fileInput.is_open()){
-        ofstream fileRegole("./Salvataggio/regole");
-        fileRegole.close();
-
         ofstream fileSudoku("./Salvataggio/sudoku");
         fileSudoku.close();
 
