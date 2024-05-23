@@ -1,7 +1,6 @@
 #include <iostream>
-#include <fstream>
 #include "generaSudoku.cpp"
-#include "Partita.cpp"
+#include "partita.cpp"
 #include "gestioneFile.cpp"
 #include "costanti.h"
 
@@ -51,6 +50,7 @@ void avviaPartita() {
         //cpu
     }
 }
+
 int menu() {
     int min = 1, max = 6, opzione;
 

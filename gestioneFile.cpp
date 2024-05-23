@@ -1,5 +1,8 @@
 #include <fstream>
 #include <iostream>
+#include "costanti.h"
+
+using namespace std;
 
 void creazioneFile(){
     ifstream fileInput("./Salvataggio/regole");
