@@ -6,18 +6,20 @@
 using namespace std;
 
 void creazioneFile(){
-    ifstream fileInput("./Salvataggio/storicco");
+    ifstream fileInput("storico.txt");
 
     if(!fileInput.is_open()){
-        ofstream fileSudoku("./Salvataggio/sudoku");
+        ofstream fileOutput;
+        
+        fileOutput.open("sudoku.txt");
         fileSudoku.close();
 
-        ofstream fileSoluzioneSudoku("./Salvataggio/soluzioneSudoku");
-        fileSoluzioneSudoku.close();
+        fileOutput.open("soluzioneSudoku.txt");
+        fileSudoku.close();
 
-        ofstream fileStorico("./Salvataggio/storico");
-        fileStorico << "0\n0";
-        fileStorico.close();
+        fileOutput.open("storico.txt");
+        fileOutput << "0\n0";
+        fileSudoku.close();
     } else {
         fileInput.close();
     }
@@ -26,7 +28,7 @@ void creazioneFile(){
 void aggiornaStorico(bool soluzione){
     int partiteVinte, partitePerse;
 
-    ifstream fileInput("./Salvataggio/storico");
+    ifstream fileInput("storico.txt");
 
     fileInput >> partiteVinte >> partitePerse;
 
@@ -40,14 +42,14 @@ void aggiornaStorico(bool soluzione){
     }
     fileInput.close();
 
-    ofstream fileOutput("./Salvataggio/storico");
+    ofstream fileOutput("storico.txt");
     fileOutput << partiteVinte << '\n' << partitePerse;
     fileOutput.close();
 }
 
 void salvaPartita(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     //output mat
-    ofstream fileSudoku("./Salvataggio/sudoku");
+    ofstream fileSudoku("sudoku.txt");
     for(int i=0; i < DIM; i++){
         for(int p=0; p < DIM; p++){
             fileSudoku << mat[i][p] << " ";
@@ -57,7 +59,7 @@ void salvaPartita(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     fileSudoku.close();
 
     //output soluzioneSudoku
-    ofstream fileSoluzioneSudoku("./Salvataggio/soluzioneSudoku");
+    ofstream fileSoluzioneSudoku("soluzioneSudoku.txt");
     for(int i=0; i < DIM; i++){
         for(int p=0; p < DIM; p++){
             fileSoluzioneSudoku << soluzioneSudoku[i][p] << " ";
