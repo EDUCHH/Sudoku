@@ -52,7 +52,7 @@ void avviaPartita(bool partitaNuova) {
 
     if (partitaNuova) {
         initMatrice(soluzioneSudoku);
-        generaSudokuRisolto(soluzioneSudoku);
+        risolviSudoku(soluzioneSudoku, false);
 
         //copia matrice
         int num = inputDifficolta();
@@ -78,6 +78,20 @@ void avviaPartita(bool partitaNuova) {
         aggiornaStorico(verificaVittoria(soluzioneSudoku, sudoku));
     } else {
         //cpu
+        stampaSudoku(sudoku);
+        risolviSudoku(sudoku, true);
+
+        if (partitaTerminata(sudoku)) {
+            stampaSudoku(sudoku);
+
+            if (exitPartita()) {
+                return;
+            }
+            salvaPartita(sudoku, soluzioneSudoku);
+        } else {
+            cout << "non è stato possibile risolvere il sudoku \n";
+        }
+        // non si va ad aggiornare lo storico perché è dell'utente.
     }
 }
 

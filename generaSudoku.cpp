@@ -50,7 +50,7 @@ bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
 }
 
 // utilizza il backtracking per cercare di generare il sudoku.
-bool generaSudokuRisolto(int mat[DIM][DIM]) {
+bool risolviSudoku(int mat[DIM][DIM], bool risoluzioneCPU) {
     int rig, col;
     bool matriceVuota = false;
 
@@ -71,16 +71,19 @@ bool generaSudokuRisolto(int mat[DIM][DIM]) {
     }
 
     int numeri[DIM] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    for (int i = 0; i < DIM; i++) {
-        int j = rand() % 9;
-        swap(numeri[i], numeri[j]);
+
+    if (!risoluzioneCPU) {
+        for (int i = 0; i < DIM; i++) {
+            int j = rand() % 9;
+            swap(numeri[i], numeri[j]);
+        }
     }
 
     for (int i = 0; i < 9; i++) {
         if (controlloNumero(mat, rig, col, numeri[i])) {
             mat[rig][col] = numeri[i];
 
-            if (generaSudokuRisolto(mat)) {
+            if (risolviSudoku(mat, risoluzioneCPU)) {
                 return true;
             }
 
@@ -114,7 +117,7 @@ void cavaNumeri(int mat[DIM][DIM], int num) {
 }
 
 
-bool risolviSudoku(int mat[DIM][DIM], int& soluzioni, bool continuaRicerca = false) {
+bool sudokuSoluzioni(int mat[DIM][DIM], int& soluzioni, bool continuaRicerca = false) {
     int rig, col;
     bool matriceVuota = false;
 
@@ -139,7 +142,7 @@ bool risolviSudoku(int mat[DIM][DIM], int& soluzioni, bool continuaRicerca = fal
         if (controlloNumero(mat, rig, col, num)) {
             mat[rig][col] = num;
 
-            if (risolviSudoku(mat, soluzioni, continuaRicerca)) {
+            if (sudokuSoluzioni(mat, soluzioni, continuaRicerca)) {
                 mat[rig][col] = 0;
             } else {
                 return true;
@@ -158,7 +161,7 @@ bool verificaSudoku(int mat[DIM][DIM]) {
 
     copiaMatrice(copia, mat);
 
-    risolviSudoku(copia, soluzioni);
+    sudokuSoluzioni(copia, soluzioni);
 
     return soluzioni == 1;
 }
