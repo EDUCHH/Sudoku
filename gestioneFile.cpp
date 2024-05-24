@@ -48,12 +48,12 @@ void aggiornaStorico(bool soluzione){
     fileOutput.close();
 }
 
-void salvaPartita(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
+void salvaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     //output mat
     ofstream fileSudoku("sudoku.txt");
     for(int i=0; i < DIM; i++){
         for(int j=0; j < DIM; j++){
-            fileSudoku << mat[i][j] << " ";
+            fileSudoku << sudoku[i][j] << " ";
         }
         fileSudoku << '\n';
     }
@@ -67,6 +67,21 @@ void salvaPartita(int mat[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
         }
         fileSoluzioneSudoku << '\n';
     }
+    fileSoluzioneSudoku.close();
+}
+
+void caricaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]) {
+    ifstream fileSudoku("sudoku.txt");
+    ifstream fileSoluzioneSudoku("soluzioneSudoku.txt");
+
+    for (int i = 0; i < DIM; i++) {
+        for (int j = 0; j < DIM; j++) {
+            fileSudoku >> sudoku[i][j];
+            fileSoluzioneSudoku >> soluzioneSudoku[i][j];
+        }
+    }
+
+    fileSudoku.close();
     fileSoluzioneSudoku.close();
 }
 
