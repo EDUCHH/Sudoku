@@ -27,32 +27,36 @@ void stampaSudoku(int mat[DIM][DIM]){
 }
 
 //partita
-void avviaPartita() {
+void avviaPartita(bool partitaNuova) {
     int soluzioneSudoku[DIM][DIM];
+    int sudoku[DIM][DIM];
 
-    initMatrice(soluzioneSudoku);
-    generaSudokuRisolto(soluzioneSudoku);
+    if (partitaNuova) {
+        initMatrice(soluzioneSudoku);
+        generaSudokuRisolto(soluzioneSudoku);
 
-    //copia matrice
-    int mat[DIM][DIM];
-    int num = inputDifficolta();
+        //copia matrice
+        int num = inputDifficolta();
 
-    do {
-        copiaMatrice(mat, soluzioneSudoku);
-        cavaNumeri(mat, num);
-    } while (!verificaSudoku(mat));
+        do {
+            copiaMatrice(sudoku, soluzioneSudoku);
+            cavaNumeri(sudoku, num);
+        } while (!verificaSudoku(sudoku));
+    } else {
+        caricaPartita(sudoku, soluzioneSudoku);
+    }
 
     if (sceltaGiocatore()) {
         //player
-        while (!partitaTerminata(mat)) {
-            stampaSudoku(mat);
-            inputMossa(mat);
+        while (!partitaTerminata(sudoku)) {
+            stampaSudoku(sudoku);
+            inputMossa(sudoku);
             if (exitPartita()) {
                 return;
             }
-            salvaPartita(mat, soluzioneSudoku);
+            salvaPartita(sudoku, soluzioneSudoku);
         }
-        aggiornaStorico(verificaVittoria(soluzioneSudoku, mat));
+        aggiornaStorico(verificaVittoria(soluzioneSudoku, sudoku));
     } else {
         //cpu
     }
@@ -90,10 +94,11 @@ int main () {
         switch (opzione) {
             case 1:
                 //Avvia una partita
-                avviaPartita();
+                avviaPartita(true);
                 break;
             case 2:
                 //Carica una partita
+                avviaPartita(false);
                 break;
             case 3:
                 //Salva ultima partita
