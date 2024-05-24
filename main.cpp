@@ -104,6 +104,7 @@ int main () {
                 break;
             case 5:
                 //Storico delle partite
+                stampaStorico();
                 break;
             case 6:
                 //Esci dal gioco

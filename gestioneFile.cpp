@@ -86,3 +86,17 @@ void stampaRegole() {
 
     regole.close();
 }
+
+void stampaStorico() {
+    ifstream storico;
+    int vittorie, perdite;
+
+    storico.open("storico.txt");
+
+    storico >> vittorie;
+    storico >> perdite;
+
+    cout << "vittorie: " << vittorie << endl;
+    cout << "perdite: " << perdite << endl;
+    cout << "totali: " << vittorie + perdite << endl;
+}
