@@ -11,10 +11,10 @@ using namespace std;
 
 //cose
 void stampaSudoku(int mat[DIM][DIM]){
-    string RED = "\033[31m";
-    string BLUE = "\033[34m";
-    string GREEN = "\033[32m";
-    string RESET = "\033[0m";
+    // string RED = "\033[31m";
+    // string BLUE = "\033[34m";
+    // string GREEN = "\033[32m";
+    // string RESET = "\033[0m";
 
     cout << RED << "+-------------------------+\n";
     for (int i = 0; i < 9; ++i) {
