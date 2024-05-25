@@ -63,7 +63,6 @@ bool risolviSudoku(int mat[DIM][DIM], bool risoluzioneCPU) {
     for (rig = 0; rig < DIM; rig++) {
         for (col = 0; col < DIM; col++) {
             if (mat[rig][col] == 0) {
-
                 // trovato una cella vuota
                 // viene aggiornato la variabile
                 matriceVuota = true;
@@ -135,6 +134,7 @@ void cavaNumeri(int mat[DIM][DIM], int num) {
         int col = rand() % 9;
 
         // cancella solo celle con numeri diversi da 0
+        // la cancellazione avviene inserendo lo 0.
         if (mat[rig][col] != 0) {
             mat[rig][col] = 0;
             num--;
@@ -146,43 +146,74 @@ void cavaNumeri(int mat[DIM][DIM], int num) {
 
 // funzione ricorsiva che viene chiamata da verificaSudoku()
 // restituisce un booleano che indica se il sudoku ha più di una soluzione oppure no.
-bool sudokuSoluzioni(int mat[DIM][DIM], int& soluzioni, bool continuaRicerca = false) {
-    int rig = -1, col = -1;
+bool sudokuSoluzioni(int mat[DIM][DIM], int& soluzioni) {
+    int rig, col;
     bool matriceVuota = false;
 
+    // cicli for che servono per vedere se c'è una cella vuota
     for (int i = 0; i < DIM; i++) {
         for (int j = 0; j < DIM; j++) {
             if (mat[i][j] == 0) {
+                // una volta identificata una cella vuota 
+                // rig e col diventano rispettivamente i e j
                 rig = i;
                 col = j;
+
+                // la variabile diventa true che serve per indicare c'è una cella vuota
                 matriceVuota = true;
                 break;
             }
         }
+
         if (matriceVuota) {
             break;
         }
     }
 
+    // se la matrice non contiene celle vuote, allora vuol dire che il sudoku è valido
     if (!matriceVuota) {
+        // il sudoku è valido quindi la variabile soluzione viene incrementato
         soluzioni++;
-        return soluzioni <= 1;
-    }
-
-    for (int num = 1; num <= DIM; num++) {
-        if (controlloNumero(mat, rig, col, num)) {
-            mat[rig][col] = num;
-
-            if (!sudokuSoluzioni(mat, soluzioni, continuaRicerca)) {
-                return false;
-            }
-
-            mat[rig][col] = 0; // Reset cella dopo ricorsione
+        
+        // restituisce un bool in base alla variabile soluzioni
+        if (soluzioni <= 1) {
+            // soluzione minore o uguale a 1
+            // in questo modo continua a cercare di trovare altre soluzioni
+            return true;
+        } else {
+            // soluzione maggiore di 1
+            // siccome la soluzione è già maggiore di 1 quindi il sudoku è già invalido
+            // non bisogna più cercare altre soluzioni quindi la funzione restituisce false
+            return false;
         }
     }
 
+    // Una volta identificata la cella vuota, si tenta di inserire i numeri da 1 a 9
+    for (int num = 1; num <= DIM; num++) {
+        // Viene effettuato il controllo per vedere se si può o meno inserire il numero nella cella vuota senza violare le regole
+        if (controlloNumero(mat, rig, col, num)) {
+            // Il numero è valido, quindi va inserito nella cella vuota
+            mat[rig][col] = num;
+
+            // Con il nuovo numero, si prova a chiamare la stessa funzione per ripetere gli stessi passaggi per le celle vuote successive
+            if (!sudokuSoluzioni(mat, soluzioni)) {
+                // Quando in una cella non si può inserire nessun numero, allora si torna alla cella precedente per cambiare il numero.
+                // Quindi, qui si restituisce false per indicare che la soluzione non è stata trovata.
+                return false;
+            }
+
+            // Reset della cella dopo la ricorsione
+            // Necessario per ripristinare il valore della cella a 0 (vuota) e permettere all'algoritmo
+            // di backtracking di esplorare tutte le possibili soluzioni
+            mat[rig][col] = 0;
+        }
+    }
+
+    // Se si è arrivati a questo punto, significa che i il numero inserito ha superato tutti i controllo e che i numeri successivi sono anche essi validi
+    // quindi si restituisce true per indicare che la soluzione è stata trovata.
     return true;
 }
+
 // il sudoku deve avere una sola soluzione. quindi questa funzione serve a verificare la validità di un sudoku in base al numero possibile di soluzioni
 // se le soluzioni sono più di uno allora il sudoku non è valudo
 bool verificaSudoku(int mat[DIM][DIM]) {
