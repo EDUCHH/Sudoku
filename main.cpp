@@ -67,8 +67,10 @@ void avviaPartita(bool partitaNuova) {
         while (!partitaTerminata(sudoku)) {
             stampaSudoku(sudoku);
             inputMossa(sudoku);
-            if (exitPartita()) {
-                return;
+            if(!verificaVittoria(soluzioneSudoku, sudoku)){
+                if (exitPartita()) {
+                    return;
+                }
             }
             salvaPartita(sudoku, soluzioneSudoku);
         }
@@ -80,10 +82,7 @@ void avviaPartita(bool partitaNuova) {
 
         if (partitaTerminata(sudoku)) {
             stampaSudoku(sudoku);
-
-            if (exitPartita()) {
-                return;
-            }
+            
             salvaPartita(sudoku, soluzioneSudoku);
         } else {
             cout << "non è stato possibile risolvere il sudoku \n";
