@@ -1,48 +1,33 @@
 # Sudoku
-## Salvataggio partite
-### Struttura partita
-```c++
-struct partita{
-    int mat[dim][dim]; //matrice del sudoku
-    string inizioPartita; // DAY/MONTH/YEAR hh:mm:ss
-    int tempoTrascorso; //misurato in secondi
-    bool giocatore; //true = player --- false = computer
-    bool stato; //true = in corso --- false = terminata
-};
-```
-### Matrice partita
-```c++
-[0][0][0][0][0][0][0][0][0]
-[0][0][0][0][0][0][0][0][0]
-[0][0][0][0][0][0][0][0][0]
-[0][0][0][0][0][0][0][0][0]
-[0][0][0][0][0][0][0][0][0]
-[0][0][0][0][0][0][0][0][0]
-[0][0][0][0][0][0][0][0][0]
-[0][0][0][0][0][0][0][0][0]
-[0][0][0][0][0][0][0][0][0]
-```
-### File di salvataggio (/partita/storico)
-```
-Riga 1: Partitte vinte
-Riga 2: Partite perse
-```
-### Ultima partita - Matrice (/partita/ultimaPartita/matrice)
-```
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0
-```
-### Ultima partita - Dati (/partita/ultimaPartita)
-```
-Riga 1: inizioPartita
-Riga 2: tempoTrascorso
-Riga 3: giocatore
-Riga 4: stato
-```
+Sudoku implementato utilizzando il linguaggio di programmazione c++.
+
+## Come installare ed eseguire il programma
+A seconda del sistema operativo in uso, i passaggi possono essere leggermente diversi.
+
+### GNU/Linux
+1. Assicurare di avere **git** installato: `git version`
+2. Assicurare di avere **gcc** installato: `gcc --version` 
+3. Clonare il repo usando **git**: `git clone https://github.com/EDUCHH/Sudoku.git`
+4. Entrare nella directory `Sudoku`: `cd Sudoku`
+5. Compilare il programma usando **g++**: `g++ -o sudoku.out main.cpp`
+6. Eseguire il programma: `./sudoku.out`
+
+#### Installare git e gcc
+Se non hai questi programmi installati, puoi installarli con il gestore di pacchetti.
+**Arch Linux**: `sudo pacman -S git gcc`
+**Debian**: `sudo apt install git gcc`
+
+### Windows
+1. Assicurare di avere **git** installato: `git version`
+2. Assicurare di avere **gcc** installato: `gcc --version` 
+3. Clonare il repo usando **git**: `git clone https://github.com/EDUCHH/Sudoku.git`
+4. Entrare nella directory `Sudoku`: `cd Sudoku`
+5. Compilare il programma usando **g++**: `g++ -o sudoku.exe main.cpp`
+6. Eseguire il programma: `./sudoku.exe`
+
+#### Installare git e gcc
+Se non hai questi programmi installati, puoi installarli accedendo al sito ufficiali di [git](https://git-scm.com/) e di [mingw-64](https://www.mingw-w64.org/).
+
+## Inserimento numero
+Per inserire il numero, scrivere prima la riga poi la colonna.
+Fare attenzione che le indici della matrice sono da 0 a 8, invece che da 1 a 9.
