@@ -53,11 +53,9 @@ void avviaPartita(bool partitaNuova) {
         } while (!verificaSudoku(sudoku));
     } else {
         //controlo che la partita non sia già finita
+        caricaPartita(sudoku, soluzioneSudoku);
         if(verificaVittoria(soluzioneSudoku, sudoku)){
-            caricaPartita(sudoku, soluzioneSudoku);
-        }
-        else{
-            cout << "Non è possibile caricare la paritta in quanto questa è finita\n";
+            cout << "Non e' possibile caricare la paritta in quanto questa e' finita\n";
             return;
         }
     }
@@ -74,6 +72,7 @@ void avviaPartita(bool partitaNuova) {
             }
             salvaPartita(sudoku, soluzioneSudoku);
         }
+        stampaSudoku(sudoku);
         aggiornaStorico(verificaVittoria(soluzioneSudoku, sudoku));
     } else {
         //cpu
@@ -85,7 +84,7 @@ void avviaPartita(bool partitaNuova) {
 
             salvaPartita(sudoku, soluzioneSudoku);
         } else {
-            cout << "non è stato possibile risolvere il sudoku \n";
+            cout << "non e' stato possibile risolvere il sudoku \n";
         }
         // non si va ad aggiornare lo storico perché è dell'utente.
     }

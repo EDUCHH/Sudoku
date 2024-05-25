@@ -109,7 +109,7 @@ int inputDifficolta() {
     int numero;
 
     do {
-        cout << "Inserisci la difficoltà di gioco [1 - 40]: ";
+        cout << "Inserisci la difficolta' di gioco [1 - 40]: ";
         cin >> numero;
     } while (numero <= 0 || numero >= 41);
 
