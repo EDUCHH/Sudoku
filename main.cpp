@@ -82,7 +82,7 @@ void avviaPartita(bool partitaNuova) {
 
         if (partitaTerminata(sudoku)) {
             stampaSudoku(sudoku);
-            
+
             salvaPartita(sudoku, soluzioneSudoku);
         } else {
             cout << "non è stato possibile risolvere il sudoku \n";
@@ -92,14 +92,13 @@ void avviaPartita(bool partitaNuova) {
 }
 
 int menu() {
-    int min = 1, max = 6, opzione;
+    int min = 1, max = 5, opzione;
 
     cout << "1. Avvia una partita \n";
     cout << "2. Carica una partita \n";
-    cout << "3. Salva ultima partita \n";
-    cout << "4. Vedere le regole \n";
-    cout << "5. Storico delle partite \n";
-    cout << "6. Esci dal gioco \n";
+    cout << "3. Vedere le regole \n";
+    cout << "4. Storico delle partite \n";
+    cout << "5. Esci dal gioco \n";
 
     do{
         cout << "Inserisci un'opzione: ";
@@ -130,17 +129,14 @@ int main () {
                 avviaPartita(false);
                 break;
             case 3:
-                //Salva ultima partita
-                break;
-            case 4:
                 //Vedere le regole
                 stampaRegole();
                 break;
-            case 5:
+            case 4:
                 //Storico delle partite
                 stampaStorico();
                 break;
-            case 6:
+            case 5:
                 //Esci dal gioco
                 return 0;
         }
