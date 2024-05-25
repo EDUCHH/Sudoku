@@ -65,12 +65,12 @@ void avviaPartita(bool partitaNuova) {
         while (!partitaTerminata(sudoku)) {
             stampaSudoku(sudoku);
             inputMossa(sudoku);
+            salvaPartita(sudoku, soluzioneSudoku);
             if(!verificaVittoria(soluzioneSudoku, sudoku)){
                 if (exitPartita()) {
                     return;
                 }
             }
-            salvaPartita(sudoku, soluzioneSudoku);
         }
         stampaSudoku(sudoku);
         aggiornaStorico(verificaVittoria(soluzioneSudoku, sudoku));
