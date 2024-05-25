@@ -11,10 +11,6 @@ using namespace std;
 
 //cose
 void stampaSudoku(int mat[DIM][DIM]){
-    // string RED = "\033[31m";
-    // string BLUE = "\033[34m";
-    // string GREEN = "\033[32m";
-    // string RESET = "\033[0m";
 
     cout << RED << "+-------------------------+\n";
     for (int i = 0; i < 9; ++i) {
@@ -22,7 +18,7 @@ void stampaSudoku(int mat[DIM][DIM]){
         for (int j = 0; j < 9; ++j) {
             if (j % 3 == 0 && j != 0) cout << RED << "|| ";
             if (mat[i][j] == 0) {
-                cout << GREEN << mat[i][j] << " ";
+                cout << PURPLE << mat[i][j] << " ";
             } else {
                 cout << BLUE << mat[i][j] << " ";
             }
@@ -55,7 +51,7 @@ void avviaPartita(bool partitaNuova) {
         //controlo che la partita non sia già finita
         caricaPartita(sudoku, soluzioneSudoku);
         if(verificaVittoria(soluzioneSudoku, sudoku)){
-            cout << "Non e' possibile caricare la paritta in quanto questa e' finita\n";
+            cout << RED << "Non e' possibile caricare la partita in quanto questa e' finita\n" << RESET;
             return;
         }
     }
@@ -84,7 +80,7 @@ void avviaPartita(bool partitaNuova) {
 
             salvaPartita(sudoku, soluzioneSudoku);
         } else {
-            cout << "non e' stato possibile risolvere il sudoku \n";
+            cout << RED << "non e' stato possibile risolvere il sudoku \n" << RESET;
         }
         // non si va ad aggiornare lo storico perché è dell'utente.
     }
@@ -93,18 +89,20 @@ void avviaPartita(bool partitaNuova) {
 int menu() {
     int min = 1, max = 5, opzione;
 
+    cout << YELLOW;
     cout << "1. Avvia una partita \n";
     cout << "2. Carica una partita \n";
     cout << "3. Vedere le regole \n";
     cout << "4. Storico delle partite \n";
     cout << "5. Esci dal gioco \n";
+    cout << RESET;
 
     do{
-        cout << "Inserisci un'opzione: ";
+        cout << ORANGE <<  "Inserisci un'opzione: " << RESET;
         cin >> opzione;
 
         if (opzione < min || opzione > max) {
-            cout << "Input errato! \n";
+            cout << RED << "Input errato! \n" << RESET;
         }
     } while (opzione < min || opzione > max);
 

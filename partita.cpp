@@ -8,11 +8,11 @@ int sceltaGiocatore() {
     int giocatore;
 
     do {
-        cout << "Inserisci il giocatore (0-CPU // 1-Player): \n";
+        cout << ORANGE << "Inserisci il giocatore (0-CPU // 1-Player): " << RESET;
         cin >> giocatore;
 
         if (giocatore < min || giocatore > max) {
-            cout << "Input errato!\n";
+            cout << RED <<"Input errato!\n" << RESET;
         }
     } while (giocatore < min || giocatore > max);
 
@@ -24,11 +24,11 @@ bool exitPartita() {
     char input;
 
     do {
-        cout << "Vuoi uscire dalla partita? (s/n) \n";
+        cout << ORANGE << "Vuoi uscire dalla partita? (s/n) " << RESET;
         cin >> input;
 
         if (input != 's' && input != 'n') {
-            cout << "Input errato! \n";
+            cout << RED << "Input errato! \n" << RESET;
         }
     } while (input != 's' && input != 'n');
 
@@ -61,11 +61,11 @@ void inputMossa(int mat[DIM][DIM]) {
     //Input numero
     min = 1; max = 9;
     do {
-        cout << "Inserisci un numero: \n";
+        cout << ORANGE << "Inserisci un numero: " << RESET;
         cin >> numero;
 
         if (numero < min || numero > max) {
-            cout << "Input errato! \n";
+            cout << RED << "Input errato! " << RESET;
         }
     } while (numero < min || numero > max);
 
@@ -73,15 +73,15 @@ void inputMossa(int mat[DIM][DIM]) {
     min = 0; max = 8;
     do {
         restart = false;
-        cout << "Inserisci la posizione in cui vuoi inserire il numero (r-c): \n";
+        cout << ORANGE << "Inserisci la posizione in cui vuoi inserire il numero (r-c): \n" << RESET;
         cin >> rig /*righe*/ >> col /*colonne*/;
 
         if ((rig < min || rig > max) || (col < min || col > max)) { //controllo dati dentro alla tabella
-            cout << "Input errato! \n";
+            cout << RED << "Input errato! \n" << RESET;
             restart = true;
         } else {
             if (mat[rig][col] != 0) {
-                cout << "Cella gia' occupata! \n";
+                cout << RED << "Cella gia' occupata! \n" << RESET;
                 restart = true;
             } else {
                 mat[rig][col] = numero;
@@ -109,7 +109,7 @@ int inputDifficolta() {
     int numero;
 
     do {
-        cout << "Inserisci la difficolta' di gioco [1 - 40]: ";
+        cout << ORANGE << "Inserisci la difficolta' di gioco [1 - 40]: " << RESET;
         cin >> numero;
     } while (numero <= 0 || numero >= 41);
 

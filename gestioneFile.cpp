@@ -35,11 +35,11 @@ void aggiornaStorico(bool soluzione){
 
     if(soluzione) {
         partiteVinte++;
-        cout << "Il giocatore ha vinto!\n";
+        cout << GREEN << "Il giocatore ha vinto!\n" << RESET;
     }
     else {
         partitePerse++;
-        cout << "Il giocatore ha perso!\n";
+        cout << RED <<  "Il giocatore ha perso!\n" << RESET;
     }
     fileInput.close();
 
@@ -111,7 +111,9 @@ void stampaStorico() {
     storico >> vittorie;
     storico >> perdite;
 
+    cout << LIGHT_BLUE;
     cout << "vittorie: " << vittorie << endl;
     cout << "perdite: " << perdite << endl;
     cout << "totali: " << vittorie + perdite << endl;
+    cout << RESET;
 }
