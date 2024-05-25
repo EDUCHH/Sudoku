@@ -28,14 +28,19 @@ void stampaSudoku(int mat[DIM][DIM]){
     */
     string RED = "\033[31m";
     string BLUE = "\033[34m";
+    string GREEN = "\033[32m";
     string RESET = "\033[0m";
-    
+
     cout << RED << "+-------------------------+\n";
     for (int i = 0; i < 9; ++i) {
         cout << RED << "| ";
         for (int j = 0; j < 9; ++j) {
             if (j % 3 == 0 && j != 0) cout << RED << "|| ";
-            cout << BLUE << mat[i][j] << " ";
+            if (mat[i][j] == 0) {
+                cout << GREEN << mat[i][j] << " ";
+            } else {
+                cout << BLUE << mat[i][j] << " ";
+            }
         }
         cout << RED << "|\n";
         if (i % 3 == 2 && i != 8) {
