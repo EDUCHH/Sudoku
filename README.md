@@ -28,7 +28,7 @@ Se non hai questi programmi installati, puoi installarli con il gestore di pacch
 6. Eseguire il programma: `./sudoku.exe`
 
 #### Installare git e gcc
-Se non hai questi programmi installati, puoi installarli accedendo al sito ufficiali di [git](https://git-scm.com/) e di [mingw-64](https://www.mingw-w64.org/).
+Se non hai questi programmi installati, puoi installarli accedendo al sito ufficiale di [git](https://git-scm.com/) e di [mingw-64](https://www.mingw-w64.org/).
 
 ## Inserimento numero
 Per inserire il numero, scrivere prima la riga poi la colonna.
