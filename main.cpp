@@ -20,7 +20,7 @@ void stampaSudoku(int mat[DIM][DIM]){
         for (int j = 0; j < 9; ++j) {
             // output divisore ogni 3 colonne tranne la prima
             if (j % 3 == 0 && j != 0) cout << RED << "|| ";
-            // il numero della matrice viene stampato in viola se e' pari a zero e quindi va sostituito, o blu se non e' zero e non va sostituito
+            // il numero della matrice viene stampato in viola se e' zero o blu se non e' zero e non va sostituito
             if (mat[i][j] == 0) {
                 cout << PURPLE << mat[i][j] << " ";
             } else {
@@ -67,7 +67,7 @@ void avviaPartita(bool partitaNuova) {
             stampaSudoku(sudoku); // viene stampato il sudoku
             inputMossa(sudoku); // viene chiesta in input la mossa
             salvaPartita(sudoku, soluzioneSudoku); // viene salvata la partita su file
-            if(!partitaTerminata(sudoku)/* controllo se il sudoku e' sbagliato in questo modo non viene mostrato quando finisce il gioco con il sudoku corretto */){
+            if(!partitaTerminata(sudoku)/* se la partita è terminata non chiede di uscire */){
                 if (exitPartita() /* chiedo all'utente se vuole uscire dal gioco */) {
                     return; // torno al main
                 }
@@ -85,7 +85,8 @@ void avviaPartita(bool partitaNuova) {
 
             salvaPartita(sudoku, soluzioneSudoku); // viene salvata la partita
         } else {
-            cout << RED << "non e' stato possibile risolvere il sudoku \n" << RESET; // output in caso che il sudoku non e' risolto
+            // output in caso che il sudoku non e' risolto
+            cout << RED << "non e' stato possibile risolvere il sudoku \n" << RESET;
         }
         // non si va ad aggiornare lo storico perché è dell'utente.
     }
