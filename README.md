@@ -14,7 +14,9 @@ A seconda del sistema operativo in uso, i passaggi possono essere leggermente di
 
 #### Installare git e gcc
 Se non hai questi programmi installati, puoi installarli con il gestore di pacchetti.
+
 **Arch Linux**: `sudo pacman -S git gcc`
+
 **Debian**: `sudo apt install git gcc`
 
 ### Windows
