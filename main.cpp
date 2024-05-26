@@ -67,7 +67,7 @@ void avviaPartita(bool partitaNuova) {
             stampaSudoku(sudoku); // viene stampato il sudoku
             inputMossa(sudoku); // viene chiesta in input la mossa
             salvaPartita(sudoku, soluzioneSudoku); // viene salvata la partita su file
-            if(!verificaVittoria(soluzioneSudoku, sudoku)/* controllo se il sudoku e' sbagliato in questo modo non viene mostrato quando finisce il gioco con il sudoku corretto */){
+            if(!partitaTerminata(sudoku)/* controllo se il sudoku e' sbagliato in questo modo non viene mostrato quando finisce il gioco con il sudoku corretto */){
                 if (exitPartita() /* chiedo all'utente se vuole uscire dal gioco */) {
                     return; // torno al main
                 }
