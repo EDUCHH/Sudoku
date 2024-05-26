@@ -14,6 +14,15 @@ void initMatrice(int mat[DIM][DIM]) {
     }
 }
 
+// copia i numeri da mat2 a mat1
+void copiaMatrice(int mat1[DIM][DIM], int mat2[DIM][DIM]) {
+    for(int i = 0; i < DIM; i++) {
+        for(int j = 0; j < DIM; j++){
+            mat1[i][j] = mat2[i][j];
+        }
+    }
+}
+
 // effettua i controlli. controlla che il numero sia valido nella cella.
 bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
     // controllo riga
@@ -31,7 +40,6 @@ bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
     }
 
     // controllo box 3*3
-
     // in questo modo troviamo le indici della casella in alto a sinistra del box.
     int rigBox = rig - rig % 3;
     int colBox = col - col % 3;
@@ -50,41 +58,36 @@ bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
     return true;
 }
 
+bool verificaMatriceVuota(int mat[DIM][DIM], int& rig, int& col) {
+    // cicli for che servono per vedere se c'è una cella vuota
+    for (rig = 0; rig < DIM; rig++) {
+        for (col = 0; col < DIM; col++) {
+            if (mat[rig][col] == 0) {
+                // una volta identificata una cella vuota si restituisce true
+                return true;
+            }
+        }
+    }
+
+    // la matrice non è vuota quindi viene restituito false
+    return false;
+}
+
 // utilizza il backtracking per cercare di generare il sudoku.
 // puo essere usato anche per risolvere un sudoku
 // è una funzione ricorsiva, vuol dire che la funzione chiama se stessa.
 bool risolviSudoku(int mat[DIM][DIM], bool risoluzioneCPU) {
     int rig, col;
 
-    // si pressupone che la matrice sia piena all'inizio
-    bool matriceVuota = false;
-
-    // vedere se ci sono delle celle vuote
-    for (rig = 0; rig < DIM; rig++) {
-        for (col = 0; col < DIM; col++) {
-            if (mat[rig][col] == 0) {
-                // trovato una cella vuota
-                // viene aggiornato la variabile
-                matriceVuota = true;
-                break;
-            }
-        }
-        if (matriceVuota) {
-            // uscire prima dal ciclo for perché c'è una cella vuota
-            break;
-
-        }
-    }
-
     // verificare che la matrice sia piena
-    // se è piena si esce dalla funzione
-    if (!matriceVuota) {
+    // se è piena si esce dalla funzione perché vuol dire che è stata trovata la soluzione
+    if (!verificaMatriceVuota(mat, rig, col)) {
         return true;
     }
 
     int numeri[DIM] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-    // i numeri vengono messi a caso solo quando ce la generazione del sudoku
+    // i numeri vengono messi a caso solo quando c'è la generazione del sudoku
     if (!risoluzioneCPU) {
         for (int i = 0; i < DIM; i++) {
             int j = rand() % 9;
@@ -93,7 +96,7 @@ bool risolviSudoku(int mat[DIM][DIM], bool risoluzioneCPU) {
     }
 
     // si prova ad inserire i numeri nella cella vuota seguendo le regole del sudoku
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < DIM; i++) {
         if (controlloNumero(mat, rig, col, numeri[i])) {
             // il numero soddisfa le regole del sudoku, quindi viene inserito nella cella
             mat[rig][col] = numeri[i];
@@ -113,15 +116,6 @@ bool risolviSudoku(int mat[DIM][DIM], bool risoluzioneCPU) {
     // non è stato possibile trovare la soluzione, quindi restituisce false
     // si procederà alla cella precedente e si proverà ad usare il numero successivo
     return false;
-}
-
-// copia i numeri da mat2 a mat1
-void copiaMatrice(int mat1[DIM][DIM], int mat2[DIM][DIM]) {
-    for(int i = 0; i < DIM; i++) {
-        for(int j = 0; j < DIM; j++){
-            mat1[i][j] = mat2[i][j];
-        }
-    }
 }
 
 // funzione che cancella i numeri dalle celle in modo da rendere il sudoku giocabile 
@@ -148,30 +142,9 @@ void cavaNumeri(int mat[DIM][DIM], int num) {
 // restituisce un booleano che indica se il sudoku ha più di una soluzione oppure no.
 bool sudokuSoluzioni(int mat[DIM][DIM], int& soluzioni) {
     int rig, col;
-    bool matriceVuota = false;
-
-    // cicli for che servono per vedere se c'è una cella vuota
-    for (int i = 0; i < DIM; i++) {
-        for (int j = 0; j < DIM; j++) {
-            if (mat[i][j] == 0) {
-                // una volta identificata una cella vuota 
-                // rig e col diventano rispettivamente i e j
-                rig = i;
-                col = j;
-
-                // la variabile diventa true che serve per indicare c'è una cella vuota
-                matriceVuota = true;
-                break;
-            }
-        }
-
-        if (matriceVuota) {
-            break;
-        }
-    }
 
     // se la matrice non contiene celle vuote, allora vuol dire che il sudoku è valido
-    if (!matriceVuota) {
+    if (!verificaMatriceVuota(mat, rig, col)) {
         // il sudoku è valido quindi la variabile soluzione viene incrementato
         soluzioni++;
         
