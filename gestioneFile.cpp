@@ -107,24 +107,27 @@ void caricaSoluzione(int soluzioneSudoku[DIM][DIM]){
     fileSoluzioneSudoku.close();
 }
 
-// Questa funzione apre il file "regole.txt" che contiene le regole del gioco Sudoku e stampa il contenuto a schermo riga per riga.
-void stampaRegole() {
-    ifstream regole;
+// Questa funzione stampa il contetune del file.
+// Il nome del file è contenuto nella variabile nomeFile di tipo string.
+// I file che vengono stampati attraverso questa funzione sono: regole.txt e asciiArt.txt.
+// regole.txt contiene le regole del sudoku.
+// asciiArt.txt contiene la parola "sudoku" stilizzato sottoforma di ascii art. 
+void stampaFile(string nomeFile) {
+    ifstream file;
     string testo;
 
-    regole.open("regole.txt");
+    file.open(nomeFile);
 
     cout << endl;
-    getline(regole, testo);
-    while (!regole.eof()) {
+    getline(file, testo);
+    while (!file.eof()) {
         cout << testo << endl;
-        getline(regole, testo);
+        getline(file, testo);
     }
     cout << endl;
 
-    regole.close();
+    file.close();
 }
-
 
 // Funzione per stampare lo storico delle partite con il numero di vittorie, perdite e partite totali.
 // Questa funzione apre il file "storico.txt" che contiene il numero di partite vinte e perse, e stampa queste informazioni a schermo.

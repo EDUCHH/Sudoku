@@ -144,6 +144,7 @@ int menu() {
 // Questa funzione gestisce il menu principale del gioco, consentendo all'utente di avviare una partita, caricare una partita esistente,
 // visualizzare le regole del gioco o consultare lo storico delle partite.
 int main () {
+    stampaFile("asciiArt.txt");
     creazioneFile(); //verifica se ci sono i file e in caso li crea
     srand(time(NULL));
 
@@ -161,7 +162,7 @@ int main () {
                 break;
             case 3:
                 //Vedere le regole
-                stampaRegole();
+                stampaFile("regole.txt");
                 break;
             case 4:
                 //Storico delle partite
