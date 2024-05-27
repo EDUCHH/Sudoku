@@ -11,11 +11,12 @@ using namespace std;
 
 void stampaSudoku(int mat[DIM][DIM]){
     //output prima riga
-    cout << RED << "+-------------------------+\n";
+    cout << GREEN << "    0 1 2    3 4 5    6 7 8\n";
+    cout << RED << "  " << "+-------------------------+\n";
     //ciclo che si ripete per le righe
     for (int i = 0; i < 9; ++i) {
         //output primo carattere riga
-        cout << RED << "| ";
+        cout << GREEN << i << RED << " | ";
         // ciclio che si ripete per il numero di colonne
         for (int j = 0; j < 9; ++j) {
             // output divisore ogni 3 colonne tranne la prima
@@ -28,14 +29,15 @@ void stampaSudoku(int mat[DIM][DIM]){
             }
         }
         //output ultimo carattere riga
-        cout << RED << "|\n";
+        cout << RED << "| " << GREEN << i << RED << "\n";
         //output divisore ogni 3 righe tranne l'ultima
         if (i % 3 == 2 && i != 8) {
-            cout << RED << "|-------++-------++-------|\n";
+            cout << RED << "  " <<  "|-------++-------++-------|\n";
         }
     }
     //output ultima riga
-    cout << RED << "+-------------------------+\n" << RESET;
+    cout << RED << "  " << "+-------------------------+\n" << RESET;
+    cout << GREEN << "    0 1 2    3 4 5    6 7 8\n";
 }
 
 void avviaPartita(bool partitaNuova) {
