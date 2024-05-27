@@ -5,7 +5,10 @@
 
 using namespace std;
 
-void creazioneFile(){
+// Questa funzione controlla se il file "storico.txt" esiste. Se non esiste crea i file "sudoku.txt", "soluzioneSudoku.txt" e "storico.txt"
+// Il file "storico.txt" viene inizializzato con valore 0 0;
+// I file creati sono "sudoku.txt" per la griglia di gioco, "soluzioneSudoku.txt" per la soluzione del Sudoku e "storico.txt" per lo storico delle partite.
+void creazioneFile() {
     ifstream fileInput("storico.txt");
 
     if(!fileInput.is_open()){
@@ -26,6 +29,8 @@ void creazioneFile(){
     }
 }
 
+// Questa funzione legge il numero di partite vinte e perse dal file "storico.txt", aggiorna i contatori in base al risultato dell'ultima partita
+// e sovrascrive i valori nel file "storico.txt" con i nuovi conteggi.
 void aggiornaStorico(bool soluzione){
     int partiteVinte, partitePerse;
 
@@ -48,6 +53,8 @@ void aggiornaStorico(bool soluzione){
     fileOutput.close();
 }
 
+// Questa funzione salva la griglia di gioco attuale 'sudoku' e la sua soluzione 'soluzioneSudoku' nei file "sudoku.txt" e "soluzioneSudoku.txt" rispettivamente.
+// Ogni numero della griglia viene separato da uno spazio e ogni riga termina con un carattere di nuova linea.
 void salvaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     //output mat
     ofstream fileSudoku("sudoku.txt");
@@ -70,6 +77,8 @@ void salvaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     fileSoluzioneSudoku.close();
 }
 
+// Questa funzione carica la griglia di gioco salvata nel file "sudoku.txt" nella matrice 'sudoku' e la relativa soluzione salvata in "soluzioneSudoku.txt"
+// nella matrice 'soluzioneSudoku'.
 void caricaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]) {
     ifstream fileSudoku("sudoku.txt");
     ifstream fileSoluzioneSudoku("soluzioneSudoku.txt");
@@ -85,6 +94,7 @@ void caricaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]) {
     fileSoluzioneSudoku.close();
 }
 
+// Questa funzione carica la soluzione del Sudoku dalla matrice salvata nel file "soluzioneSudoku.txt" nella matrice 'soluzioneSudoku'.
 void caricaSoluzione(int soluzioneSudoku[DIM][DIM]){
     ifstream fileSoluzioneSudoku("soluzioneSudoku.txt");
 
@@ -97,6 +107,7 @@ void caricaSoluzione(int soluzioneSudoku[DIM][DIM]){
     fileSoluzioneSudoku.close();
 }
 
+// Questa funzione apre il file "regole.txt" che contiene le regole del gioco Sudoku e stampa il contenuto a schermo riga per riga.
 void stampaRegole() {
     ifstream regole;
     string testo;
@@ -114,6 +125,10 @@ void stampaRegole() {
     regole.close();
 }
 
+
+// Funzione per stampare lo storico delle partite con il numero di vittorie, perdite e partite totali.
+// Questa funzione apre il file "storico.txt" che contiene il numero di partite vinte e perse, e stampa queste informazioni a schermo.
+// In base alle vincite e alle perdite viene calcolato e stampato il numero di partite totali.
 void stampaStorico() {
     ifstream storico;
     int vittorie, perdite;

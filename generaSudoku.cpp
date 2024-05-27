@@ -58,6 +58,9 @@ bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
     return true;
 }
 
+// ritorna le indici di riga e colonna della prima cella vuota
+// se la matrice è piena la funzione restituisce false
+// i parametri di output rig e col = -1
 bool verificaMatriceVuota(int mat[DIM][DIM], int& rig, int& col) {
     // cicli for che servono per vedere se c'è una cella vuota
     for (rig = 0; rig < DIM; rig++) {
@@ -70,11 +73,14 @@ bool verificaMatriceVuota(int mat[DIM][DIM], int& rig, int& col) {
     }
 
     // la matrice non è vuota quindi viene restituito false
+    // le variabili rig e col sono impostati a -1 per indicare che non è stata trovata la cella vuota
+    rig = -1;
+    col = -1;
     return false;
 }
 
 // utilizza il backtracking per cercare di generare il sudoku.
-// puo essere usato anche per risolvere un sudoku
+// può essere usato anche per risolvere un sudoku
 // è una funzione ricorsiva, vuol dire che la funzione chiama se stessa.
 bool risolviSudoku(int mat[DIM][DIM], bool risoluzioneCPU) {
     int rig, col;

@@ -9,6 +9,11 @@
 
 using namespace std;
 
+// Funzione per stampare una griglia di Sudoku 9x9 con i numeri forniti nella matrice 'mat'.
+// L'output della griglia è colorata in colori diversi
+// Lo 0 che indica una cella vuota è colorato in viola
+// Il numero inserito correttamente è colorato in blu
+// Il numero inserito non corretto è colorato in rosso
 void stampaSudoku(int mat[DIM][DIM], bool soluzione){
     //input file
     int soluzioneSudoku[DIM][DIM];
@@ -45,6 +50,10 @@ void stampaSudoku(int mat[DIM][DIM], bool soluzione){
     cout << GREEN << "    0 1 2    3 4 5    6 7 8\n";
 }
 
+// Funzione per avviare una partita di Sudoku.
+// Questa funzione gestisce il flusso di gioco per una partita di Sudoku, consentendo al giocatore di giocare o alla CPU di risolvere il Sudoku.
+// Se il parametro 'partitaNuova' è true, viene inizializzata una nuova partita con una griglia generata casualmente.
+// Se 'partitaNuova' è false, viene caricata una partita esistente da file.
 void avviaPartita(bool partitaNuova) {
     int soluzioneSudoku[DIM][DIM];
     int sudoku[DIM][DIM];
@@ -100,6 +109,14 @@ void avviaPartita(bool partitaNuova) {
     }
 }
 
+// Funzione per visualizzare il menu del gioco Sudoku e ottenere l'opzione scelta dall'utente.
+// Il menu mostra le seguenti opzioni:
+// 1.  Avvia una partita
+// 2.  Carica una partita
+// 3.  Vedere le regole
+// 4.  Storico delle partite
+// 5.  Esci dal gioco
+// L'utente è tenuto a inserire un'opzione valida compresa tra 1 e 5.
 int menu() {
     int min = 1, max = 5, opzione;
 
@@ -123,6 +140,9 @@ int menu() {
     return opzione;
 }
 
+// Funzione principale del gioco Sudoku.
+// Questa funzione gestisce il menu principale del gioco, consentendo all'utente di avviare una partita, caricare una partita esistente,
+// visualizzare le regole del gioco o consultare lo storico delle partite.
 int main () {
     creazioneFile(); //verifica se ci sono i file e in caso li crea
     srand(time(NULL));
