@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include <fstream>
 #include "generaSudoku.cpp"
 #include "partita.cpp"
 #include "gestioneFile.cpp"
