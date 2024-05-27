@@ -115,3 +115,17 @@ int inputDifficolta() {
 
     return numero;
 }
+
+// mostra nel terminale eventuali errori nella risoluzione del sudoku
+void outputEventualiErrori(int soluzioneSudoku[DIM][DIM], int sudoku[DIM][DIM]){
+    if (!verificaVittoria(soluzioneSudoku, sudoku)){
+        cout << RED << "Ecco gli errori: " << RESET << '\n';
+        for(int i=0; i < DIM; i++){
+            for(int j=0; j < DIM; j++){
+                if(soluzioneSudoku[i][j] != sudoku[i][j]){
+                    cout << "pos[" << i <<"-" << j << "] " << RED << sudoku[i][j] << RESET << " -> " << GREEN << soluzioneSudoku[i][j] << RESET << '\n';
+                }
+            }
+        }
+    }
+}

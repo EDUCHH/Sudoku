@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <fstream>
 #include "generaSudoku.cpp"
 #include "partita.cpp"
 #include "gestioneFile.cpp"
@@ -9,7 +10,10 @@
 
 using namespace std;
 
-void stampaSudoku(int mat[DIM][DIM]){
+void stampaSudoku(int mat[DIM][DIM], bool soluzione){
+    //input file
+    int soluzioneSudoku[DIM][DIM];
+    caricaSoluzione(soluzioneSudoku);
     //output prima riga
     cout << GREEN << "    0 1 2    3 4 5    6 7 8\n";
     cout << RED << "  " << "+-------------------------+\n";
@@ -24,6 +28,8 @@ void stampaSudoku(int mat[DIM][DIM]){
             // il numero della matrice viene stampato in viola se e' zero o blu se non e' zero e non va sostituito
             if (mat[i][j] == 0) {
                 cout << PURPLE << mat[i][j] << " ";
+            }  else if(soluzione && mat[i][j] != soluzioneSudoku[i][j]){
+                cout << RED << mat[i][j] << " ";
             } else {
                 cout << BLUE << mat[i][j] << " ";
             }
@@ -66,7 +72,7 @@ void avviaPartita(bool partitaNuova) {
     if (sceltaGiocatore()/* viene scelto il giocatore, player o cpu */) {
         //player
         while (!partitaTerminata(sudoku)/* finche' la partita non e' terminata continua il ciclo */) {
-            stampaSudoku(sudoku); // viene stampato il sudoku
+            stampaSudoku(sudoku, false); // viene stampato il sudoku
             inputMossa(sudoku); // viene chiesta in input la mossa
             salvaPartita(sudoku, soluzioneSudoku); // viene salvata la partita su file
             if(!partitaTerminata(sudoku)/* se la partita è terminata non chiede di uscire */){
@@ -75,15 +81,16 @@ void avviaPartita(bool partitaNuova) {
                 }
             }
         }
-        stampaSudoku(sudoku); // viene stampato il sudoku finito
+        stampaSudoku(sudoku, true); // viene stampato il sudoku finito
         aggiornaStorico(verificaVittoria(soluzioneSudoku, sudoku)); // viene aggiornato lo storico
+        outputEventualiErrori(soluzioneSudoku, sudoku);
     } else {
         //cpu
-        stampaSudoku(sudoku); // viene stampato il sudoku
+        stampaSudoku(sudoku, false); // viene stampato il sudoku
         risolviSudoku(sudoku, true); // viene risolto il sudoku
 
         if (partitaTerminata(sudoku) /* controllo che il sudoku sia completo */) {
-            stampaSudoku(sudoku); // viene stampato il sudoku completo
+            stampaSudoku(sudoku, false); // viene stampato il sudoku completo
 
             salvaPartita(sudoku, soluzioneSudoku); // viene salvata la partita
         } else {

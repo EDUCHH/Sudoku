@@ -85,6 +85,18 @@ void caricaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]) {
     fileSoluzioneSudoku.close();
 }
 
+void caricaSoluzione(int soluzioneSudoku[DIM][DIM]){
+    ifstream fileSoluzioneSudoku("soluzioneSudoku.txt");
+
+    for (int i = 0; i < DIM; i++) {
+        for (int j = 0; j < DIM; j++) {
+            fileSoluzioneSudoku >> soluzioneSudoku[i][j];
+        }
+    }
+
+    fileSoluzioneSudoku.close();
+}
+
 void stampaRegole() {
     ifstream regole;
     string testo;
