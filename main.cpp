@@ -14,7 +14,7 @@ using namespace std;
 // Lo 0 che indica una cella vuota è colorato in viola
 // Il numero inserito correttamente è colorato in blu
 // Il numero inserito non corretto è colorato in rosso
-void stampaSudoku(int mat[DIM][DIM], bool soluzione){
+void stampaSudoku(int mat[DIM][DIM], bool soluzione, bool sudokuIniziale[DIM][DIM]){
     //input file
     int soluzioneSudoku[DIM][DIM];
     caricaSoluzione(soluzioneSudoku);
@@ -32,7 +32,9 @@ void stampaSudoku(int mat[DIM][DIM], bool soluzione){
             // il numero della matrice viene stampato in viola se e' zero o blu se non e' zero e non va sostituito
             if (mat[i][j] == 0) {
                 cout << PURPLE << mat[i][j] << " ";
-            }  else if(soluzione && mat[i][j] != soluzioneSudoku[i][j]){
+            } else if(!sudokuIniziale[i][j]){
+                cout << ORANGE << mat[i][j] << " ";
+            } else if(soluzione && mat[i][j] != soluzioneSudoku[i][j]){
                 cout << RED << mat[i][j] << " ";
             } else {
                 cout << BLUE << mat[i][j] << " ";
@@ -57,6 +59,7 @@ void stampaSudoku(int mat[DIM][DIM], bool soluzione){
 void avviaPartita(bool partitaNuova) {
     int soluzioneSudoku[DIM][DIM];
     int sudoku[DIM][DIM];
+    bool sudokuIniziale[DIM][DIM]; // true = riempita inizialmente ----- false = non riempita inizialmente
 
     if (partitaNuova) {
         initMatrice(soluzioneSudoku); // viene inizializzata a 0 la matrice con la soluzione del sudoku
@@ -68,6 +71,8 @@ void avviaPartita(bool partitaNuova) {
             copiaMatrice(sudoku, soluzioneSudoku); // viene copiata la matrice con la soluzione in quella con il sudoku
             cavaNumeri(sudoku, num); // toglie i numeri dal sudoku (num = difficolta')
         } while (!verificaSudoku(sudoku)); // viene verificato che il sudoku ha una sola soluzione
+
+        setBoolMatSudokuIniziale(sudoku, sudokuIniziale);
     } else {
         caricaPartita(sudoku, soluzioneSudoku); // viene caricato il sudoku e la soluzione da file
         // controllo che il sudoku non sia gia' risolto
@@ -80,7 +85,7 @@ void avviaPartita(bool partitaNuova) {
     if (sceltaGiocatore()/* viene scelto il giocatore, player o cpu */) {
         //player
         while (!partitaTerminata(sudoku)/* finche' la partita non e' terminata continua il ciclo */) {
-            stampaSudoku(sudoku, false); // viene stampato il sudoku
+            stampaSudoku(sudoku, false, sudokuIniziale); // viene stampato il sudoku
             inputMossa(sudoku); // viene chiesta in input la mossa
             salvaPartita(sudoku, soluzioneSudoku); // viene salvata la partita su file
             if(!partitaTerminata(sudoku)/* se la partita è terminata non chiede di uscire */){
@@ -89,16 +94,16 @@ void avviaPartita(bool partitaNuova) {
                 }
             }
         }
-        stampaSudoku(sudoku, true); // viene stampato il sudoku finito
+        stampaSudoku(sudoku, true, sudokuIniziale); // viene stampato il sudoku finito
         aggiornaStorico(verificaVittoria(soluzioneSudoku, sudoku)); // viene aggiornato lo storico
         outputEventualiErrori(soluzioneSudoku, sudoku);
     } else {
         //cpu
-        stampaSudoku(sudoku, false); // viene stampato il sudoku
+        stampaSudoku(sudoku, false, sudokuIniziale); // viene stampato il sudoku
         risolviSudoku(sudoku, true); // viene risolto il sudoku
 
         if (partitaTerminata(sudoku) /* controllo che il sudoku sia completo */) {
-            stampaSudoku(sudoku, false); // viene stampato il sudoku completo
+            stampaSudoku(sudoku, false, sudokuIniziale); // viene stampato il sudoku completo
 
             salvaPartita(sudoku, soluzioneSudoku); // viene salvata la partita
         } else {
