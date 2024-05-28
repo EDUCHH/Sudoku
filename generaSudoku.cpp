@@ -23,20 +23,6 @@ void copiaMatrice(int mat1[DIM][DIM], int mat2[DIM][DIM]) {
     }
 }
 
-// da i valori alla matrice che serve a verificare se un numero era già presente all'inizio o meno
-// true = riempita inizialmente ----- false = non riempita inizialmente
-void setBoolMatSudokuIniziale(int sudoku[DIM][DIM], bool sudokuIniziale[DIM][DIM]){
-    for(int i=0; i < DIM; i++){
-        for(int j=0; j < DIM; j++){
-            if(sudoku[i][j] == 0) {
-                sudokuIniziale[i][j] = false;
-            } else {
-                sudokuIniziale[i][j] = true;
-            }
-        }
-    }
-}
-
 // effettua i controlli. controlla che il numero sia valido nella cella.
 bool controlloNumero(int mat[DIM][DIM], int rig, int col, int num) {
     // controllo riga
