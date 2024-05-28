@@ -35,4 +35,4 @@ Per inserire il numero, scrivere prima la riga poi la colonna.
 Fare attenzione che le indici della matrice sono da 0 a 8, invece che da 1 a 9.
 
 ## Licenza
-Il progetto è distribuito con **licenza SBD0**. Controllare il file **LICENSE** per i dettagli
+Il progetto è distribuito con **licenza 0BSD**. Controllare il file **LICENSE** per i dettagli.
