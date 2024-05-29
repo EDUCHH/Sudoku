@@ -21,6 +21,9 @@ void creazioneFile() {
         fileOutput.open("soluzioneSudoku.txt");
         fileOutput.close();
 
+        fileOutput.open("modificheSudoku.txt");
+        fileOutput.close();
+
         fileOutput.open("storico.txt");
         fileOutput << "0\n0";
         fileOutput.close();
@@ -56,43 +59,46 @@ void aggiornaStorico(bool soluzione){
 
 // Questa funzione salva la griglia di gioco attuale 'sudoku' e la sua soluzione 'soluzioneSudoku' nei file "sudoku.txt" e "soluzioneSudoku.txt" rispettivamente.
 // Ogni numero della griglia viene separato da uno spazio e ogni riga termina con un carattere di nuova linea.
-void salvaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
+void salvaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM], int modificheSudoku[DIM][DIM]){
     //output mat
     ofstream fileSudoku("sudoku.txt");
+    ofstream fileSoluzioneSudoku("soluzioneSudoku.txt");
+    ofstream fileModificheSudoku("modificheSudoku.txt");
+
     for(int i=0; i < DIM; i++){
         for(int j=0; j < DIM; j++){
             fileSudoku << sudoku[i][j] << " ";
+            fileSoluzioneSudoku << soluzioneSudoku[i][j] << " ";
+            fileModificheSudoku << modificheSudoku[i][j] << " ";
         }
         fileSudoku << '\n';
-    }
-    fileSudoku.close();
-
-    //output soluzioneSudoku
-    ofstream fileSoluzioneSudoku("soluzioneSudoku.txt");
-    for(int i=0; i < DIM; i++){
-        for(int j=0; j < DIM; j++){
-            fileSoluzioneSudoku << soluzioneSudoku[i][j] << " ";
-        }
         fileSoluzioneSudoku << '\n';
+        fileModificheSudoku << '\n';
     }
+    
+    fileSudoku.close();
     fileSoluzioneSudoku.close();
+    fileModificheSudoku.close();
 }
 
 // Questa funzione carica la griglia di gioco salvata nel file "sudoku.txt" nella matrice 'sudoku' e la relativa soluzione salvata in "soluzioneSudoku.txt"
 // nella matrice 'soluzioneSudoku'.
-void caricaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]) {
+void caricaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM], int modificheSudoku[DIM][DIM]) {
     ifstream fileSudoku("sudoku.txt");
     ifstream fileSoluzioneSudoku("soluzioneSudoku.txt");
+    ifstream fileModificheSudoku("modificheSudoku.txt");
 
     for (int i = 0; i < DIM; i++) {
         for (int j = 0; j < DIM; j++) {
             fileSudoku >> sudoku[i][j];
             fileSoluzioneSudoku >> soluzioneSudoku[i][j];
+            fileModificheSudoku >> modificheSudoku[i][j];
         }
     }
 
     fileSudoku.close();
     fileSoluzioneSudoku.close();
+    fileModificheSudoku.close();
 }
 
 // Questa funzione carica la soluzione del Sudoku dalla matrice salvata nel file "soluzioneSudoku.txt" nella matrice 'soluzioneSudoku'.

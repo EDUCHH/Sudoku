@@ -61,7 +61,7 @@ bool partitaTerminata(int mat[DIM][DIM]) {
 // Funzione per gestire l'input della mossa del giocatore nel Sudoku.
 // Questa funzione richiede all'utente di inserire un numero da 1 a 9 e la posizione in cui inserirlo nella griglia di gioco.
 // L'utente è guidato a inserire un numero valido e a posizionarlo in una cella vuota della griglia.
-void inputMossa(int mat[DIM][DIM]) {
+void inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
     int numero;
     int min, max;
     bool restart;
@@ -90,10 +90,15 @@ void inputMossa(int mat[DIM][DIM]) {
             restart = true;
         } else {
             if (mat[rig][col] != 0) {
+                if(modificheSudoku[rig][col] = 1){
+                    mat[rig][col] = numero;
+                    break;
+                }
                 cout << RED << "Cella gia' occupata! \n" << RESET;
                 restart = true;
             } else {
                 mat[rig][col] = numero;
+                modificheSudoku[rig][col] = 1;
             }
         }
     } while (restart);
