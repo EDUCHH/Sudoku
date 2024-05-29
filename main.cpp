@@ -62,20 +62,23 @@ void avviaPartita(bool partitaNuova) {
     // 0: NUMERO NON INSERITO DALL'UTENTE
     // 1: NUMERO INSERITO DALL'UTENTE
     int modificheSudoku[DIM][DIM];
+    int suggerimentiDisponibili = 0;
 
     if (partitaNuova) {
         initMatrice(soluzioneSudoku); // viene inizializzata a 0 la matrice con la soluzione del sudoku
         initMatrice(modificheSudoku); // viene inizializzata a 0 la matrice con le modifiche del sudoku
         risolviSudoku(soluzioneSudoku, false); // viene generata la soluzione del sudoku
 
-        int num = inputDifficolta(); // viene inserita presa in input la difficolta'
+        suggerimentiDisponibili = inputDifficolta(); // viene inserita presa in input la difficolta'
 
         do {
             copiaMatrice(sudoku, soluzioneSudoku); // viene copiata la matrice con la soluzione in quella con il sudoku
-            cavaNumeri(sudoku, num); // toglie i numeri dal sudoku (num = difficolta')
+            cavaNumeri(sudoku, suggerimentiDisponibili); // toglie i numeri dal sudoku (num = difficolta')
         } while (!verificaSudoku(sudoku)); // viene verificato che il sudoku ha una sola soluzione
+
+        suggerimentiDisponibili /= 10;
     } else {
-        caricaPartita(sudoku, soluzioneSudoku, modificheSudoku); // viene caricato il sudoku e la soluzione da file
+        caricaPartita(sudoku, soluzioneSudoku, modificheSudoku, suggerimentiDisponibili); // viene caricato il sudoku e la soluzione da file
         // controllo che il sudoku non sia gia' risolto
         if(verificaVittoria(soluzioneSudoku, sudoku)){
             cout << RED << "Non e' possibile caricare la partita in quanto questa e' finita\n" << RESET;
@@ -85,12 +88,26 @@ void avviaPartita(bool partitaNuova) {
 
     if (sceltaGiocatore()/* viene scelto il giocatore, player o cpu */) {
         //player
+        cout << GREEN << "Ci sono "<< RESET << suggerimentiDisponibili << GREEN << " suggerimenti disponibili!" << RESET << '\n';
+        salvaPartita(sudoku, soluzioneSudoku, modificheSudoku, suggerimentiDisponibili); // viene salvata la partita su file
+
         while (!partitaTerminata(sudoku)/* finche' la partita non e' terminata continua il ciclo */) {
             stampaSudoku(sudoku, false, modificheSudoku); // viene stampato il sudoku
-            if(inputMossa(sudoku, modificheSudoku) /* viene chiesta in input la mossa */) {
+            
+            int returnInputMossa = inputMossa(sudoku, modificheSudoku); // viene chiesta in input la mossa
+            if(returnInputMossa == 1) {
                 return;
+            } else if(returnInputMossa == 2) {
+                if(suggerimentiDisponibili > 0){
+                    suggerimento(sudoku, soluzioneSudoku);
+                    suggerimentiDisponibili--;
+                    cout << GREEN << "Suggerimenti rimanenti: "<< RESET << suggerimentiDisponibili << '\n';
+                } else{
+                    cout << RED << "Non ci sono suggerimenti disponibili!" << RESET << '\n';
+                }
             }
-            salvaPartita(sudoku, soluzioneSudoku, modificheSudoku); // viene salvata la partita su file
+
+            salvaPartita(sudoku, soluzioneSudoku, modificheSudoku, suggerimentiDisponibili); // viene salvata la partita su file
         }
         stampaSudoku(sudoku, true, modificheSudoku); // viene stampato il sudoku finito
         aggiornaStorico(verificaVittoria(soluzioneSudoku, sudoku)); // viene aggiornato lo storico
@@ -103,7 +120,7 @@ void avviaPartita(bool partitaNuova) {
         if (partitaTerminata(sudoku) /* controllo che il sudoku sia completo */) {
             stampaSudoku(sudoku, false, modificheSudoku); // viene stampato il sudoku completo
 
-            salvaPartita(sudoku, soluzioneSudoku, modificheSudoku); // viene salvata la partita
+            salvaPartita(sudoku, soluzioneSudoku, modificheSudoku, suggerimentiDisponibili); // viene salvata la partita
         } else {
             // output in caso che il sudoku non e' risolto
             cout << RED << "non e' stato possibile risolvere il sudoku \n" << RESET;

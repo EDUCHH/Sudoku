@@ -22,6 +22,18 @@ int sceltaGiocatore() {
     return giocatore;
 }
 
+void suggerimento(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
+    for(int i=0; i < DIM; i++){
+        for(int j=0; j < DIM; j++){
+            if(sudoku[i][j] == 0){
+                sudoku[i][j] = soluzioneSudoku[i][j];
+                cout << GREEN << "Suggerimento utilizzato: " << RESET << soluzioneSudoku[i][j] << '[' << i << '-' << j << ']' << '\n';
+                return;
+            }
+        }
+    }
+}
+
 // Questa funzione controlla se la griglia di gioco 'mat' è completamente riempita, ossia se non ci sono più celle vuote.
 // False indica che la partita non è terminata, mentre true indica il caso contrario.
 bool partitaTerminata(int mat[DIM][DIM]) {
@@ -39,7 +51,7 @@ bool partitaTerminata(int mat[DIM][DIM]) {
 // Funzione per gestire l'input della mossa del giocatore nel Sudoku.
 // Questa funzione richiede all'utente di inserire un numero da 1 a 9 e la posizione in cui inserirlo nella griglia di gioco.
 // L'utente è guidato a inserire un numero valido e a posizionarlo in una cella vuota della griglia.
-bool inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
+int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
     int numero;
     int min, max;
     bool restart;
@@ -52,7 +64,9 @@ bool inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
         cin >> numero;
         
         if(numero == -1){
-            return true;
+            return 1;
+        } else if(numero == -2){
+            return 2;
         } else if (numero < min || numero > max) {
             cout << RED << "Input errato! " << RESET;
         }
@@ -83,7 +97,7 @@ bool inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
         }
     } while (restart);
 
-    return false;
+    return 0;
 }
 
 // Funzione per verificare se la griglia di gioco corrente corrisponde alla soluzione del Sudoku.
