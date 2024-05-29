@@ -101,7 +101,12 @@ void avviaPartita(bool partitaNuova) {
                 if(suggerimentiDisponibili > 0){
                     suggerimento(sudoku, soluzioneSudoku);
                     suggerimentiDisponibili--;
-                    cout << GREEN << "Suggerimenti rimanenti: "<< RESET << suggerimentiDisponibili << '\n';
+                    if(suggerimentiDisponibili == 0){
+                        cout << RED << "Suggerimenti rimanenti: "<< RESET << suggerimentiDisponibili << '\n';
+                    } else{
+                        cout << GREEN << "Suggerimenti rimanenti: "<< RESET << suggerimentiDisponibili << '\n';
+                    }
+                    
                 } else{
                     cout << RED << "Non ci sono suggerimenti disponibili!" << RESET << '\n';
                 }

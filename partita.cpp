@@ -23,15 +23,23 @@ int sceltaGiocatore() {
 }
 
 void suggerimento(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
-    for(int i=0; i < DIM; i++){
-        for(int j=0; j < DIM; j++){
-            if(sudoku[i][j] == 0){
-                sudoku[i][j] = soluzioneSudoku[i][j];
-                cout << GREEN << "Suggerimento utilizzato: " << RESET << soluzioneSudoku[i][j] << '[' << i << '-' << j << ']' << '\n';
-                return;
-            }
+    int min=0, max=8;
+    int rig, col;
+    bool restart;
+
+    do{
+        restart = false;
+        cout << ORANGE << "Dove vuoi inserire il suggerimento (r-c):" << RESET << '\n';
+        cin >> rig >> col;
+
+        if(sudoku[rig][col] == 0){
+            sudoku[rig][col] = soluzioneSudoku[rig][col];
+            cout << GREEN << "Suggerimento utilizzato: " << RESET << soluzioneSudoku[rig][col] << '[' << rig << '-' << col << ']' << '\n';
+        } else{
+            cout << RED << "Cella gia' occupata!" << RESET << '\n';
+            restart = true;
         }
-    }
+    }while(restart);
 }
 
 // Questa funzione controlla se la griglia di gioco 'mat' è completamente riempita, ossia se non ci sono più celle vuote.
