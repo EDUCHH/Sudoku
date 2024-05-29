@@ -87,13 +87,10 @@ void avviaPartita(bool partitaNuova) {
         //player
         while (!partitaTerminata(sudoku)/* finche' la partita non e' terminata continua il ciclo */) {
             stampaSudoku(sudoku, false, modificheSudoku); // viene stampato il sudoku
-            inputMossa(sudoku, modificheSudoku); // viene chiesta in input la mossa
-            salvaPartita(sudoku, soluzioneSudoku, modificheSudoku); // viene salvata la partita su file
-            if(!partitaTerminata(sudoku)/* se la partita è terminata non chiede di uscire */){
-                if (exitPartita() /* chiedo all'utente se vuole uscire dal gioco */) {
-                    return; // torno al main
-                }
+            if(inputMossa(sudoku, modificheSudoku) /* viene chiesta in input la mossa */) {
+                return;
             }
+            salvaPartita(sudoku, soluzioneSudoku, modificheSudoku); // viene salvata la partita su file
         }
         stampaSudoku(sudoku, true, modificheSudoku); // viene stampato il sudoku finito
         aggiornaStorico(verificaVittoria(soluzioneSudoku, sudoku)); // viene aggiornato lo storico

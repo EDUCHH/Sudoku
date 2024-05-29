@@ -22,28 +22,6 @@ int sceltaGiocatore() {
     return giocatore;
 }
 
-// Funzione per consentire all'utente di decidere se uscire dalla partita o continuare.
-// Questa funzione richiede all'utente di inserire 's' per confermare l'uscita dalla partita o 'n' per continuare.
-// L'utente è tenuto a inserire un'opzione valida tra 's' e 'n'.
-bool exitPartita() {
-    char input;
-
-    do {
-        cout << ORANGE << "Vuoi uscire dalla partita? (s/n) " << RESET;
-        cin >> input;
-
-        if (input != 's' && input != 'n') {
-            cout << RED << "Input errato! \n" << RESET;
-        }
-    } while (input != 's' && input != 'n');
-
-    if (input == 's') {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 // Questa funzione controlla se la griglia di gioco 'mat' è completamente riempita, ossia se non ci sono più celle vuote.
 // False indica che la partita non è terminata, mentre true indica il caso contrario.
 bool partitaTerminata(int mat[DIM][DIM]) {
@@ -61,7 +39,7 @@ bool partitaTerminata(int mat[DIM][DIM]) {
 // Funzione per gestire l'input della mossa del giocatore nel Sudoku.
 // Questa funzione richiede all'utente di inserire un numero da 1 a 9 e la posizione in cui inserirlo nella griglia di gioco.
 // L'utente è guidato a inserire un numero valido e a posizionarlo in una cella vuota della griglia.
-void inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
+bool inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
     int numero;
     int min, max;
     bool restart;
@@ -72,8 +50,10 @@ void inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
     do {
         cout << ORANGE << "Inserisci un numero: " << RESET;
         cin >> numero;
-
-        if (numero < min || numero > max) {
+        
+        if(numero == -1){
+            return true;
+        } else if (numero < min || numero > max) {
             cout << RED << "Input errato! " << RESET;
         }
     } while (numero < min || numero > max);
@@ -102,6 +82,8 @@ void inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
             }
         }
     } while (restart);
+
+    return false;
 }
 
 // Funzione per verificare se la griglia di gioco corrente corrisponde alla soluzione del Sudoku.
