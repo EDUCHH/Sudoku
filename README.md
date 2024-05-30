@@ -41,5 +41,8 @@ Quando si sta inserendo un numero -2 per avere un suggerimento, c'è un suggerim
 
 Quando si sta inserendo le coordinate inserire -1 per tornale alla fase di inserimento del numero.
 
+## Storico
+lo storico viene aggiornato solo quando il giocatore completa un sudoku. Di conseguenza, se la CPU risolve il sudoku, lo storico non viene aggiornato.
+
 ## Licenza
 Il progetto è distribuito con **licenza 0BSD**. Controllare il file **[LICENSE](LICENSE)** per i dettagli.
