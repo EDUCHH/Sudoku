@@ -88,7 +88,12 @@ int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
         cin >> rig /*righe*/;
 
         if(rig == -1){
-            inputMossa(mat, modificheSudoku);
+            int returnInputMossa = inputMossa(mat, modificheSudoku);
+            if(returnInputMossa == 1){
+                return 1;
+            } else if(returnInputMossa == 2){
+                return 2;
+            }
             break;
         }
 
