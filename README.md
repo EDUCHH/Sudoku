@@ -32,7 +32,14 @@ Se non hai questi programmi installati, puoi installarli accedendo al sito uffic
 
 ## Inserimento numero
 Per inserire il numero, scrivere prima la riga poi la colonna.
+
 Fare attenzione che le indici della matrice sono da 0 a 8, invece che da 1 a 9.
+
+Quando si sta inserendo un numero -1 per uscire.
+
+Quando si sta inserendo un numero -2 per avere un suggerimento, c'è un suggerimento disponibile ogni 10 numeri da inserire.
+
+Quando si sta inserendo le coordinate inserire -1 per tornale alla fase di inserimento del numero.
 
 ## Licenza
 Il progetto è distribuito con **licenza 0BSD**. Controllare il file **[LICENSE](LICENSE)** per i dettagli.
