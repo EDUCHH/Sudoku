@@ -99,8 +99,9 @@ void avviaPartita(bool partitaNuova) {
                 return;
             } else if(returnInputMossa == 2) {
                 if(suggerimentiDisponibili > 0){
-                    suggerimento(sudoku, soluzioneSudoku);
-                    suggerimentiDisponibili--;
+                    if(suggerimento(sudoku, soluzioneSudoku)){
+                        suggerimentiDisponibili--;
+                    }
                     if(suggerimentiDisponibili == 0){
                         cout << RED << "Suggerimenti rimanenti: "<< RESET << suggerimentiDisponibili << '\n';
                     } else{

@@ -22,7 +22,7 @@ int sceltaGiocatore() {
     return giocatore;
 }
 
-void suggerimento(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
+bool suggerimento(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     int min=0, max=8;
     int rig, col;
     bool restart;
@@ -30,16 +30,32 @@ void suggerimento(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     do{
         restart = false;
         cout << ORANGE << "Dove vuoi inserire il suggerimento (r-c):" << RESET << '\n';
-        cin >> rig >> col;
+        cin >> rig;
 
-        if(sudoku[rig][col] == 0){
-            sudoku[rig][col] = soluzioneSudoku[rig][col];
-            cout << GREEN << "Suggerimento utilizzato: " << RESET << soluzioneSudoku[rig][col] << '[' << rig << '-' << col << ']' << '\n';
+        if(rig == -1){
+            return false;
+        }
+        
+        cin >> col;
+        if(col == -1){
+            return false;
+        }
+
+        if((rig >= min && rig <= max) && (col >= min && col <= max)){
+            if(sudoku[rig][col] == 0){
+                sudoku[rig][col] = soluzioneSudoku[rig][col];
+                cout << GREEN << "Suggerimento utilizzato: " << RESET << soluzioneSudoku[rig][col] << '[' << rig << '-' << col << ']' << '\n';
+            } else{
+                cout << RED << "Cella gia' occupata!" << RESET << '\n';
+                restart = true;
+            }
         } else{
-            cout << RED << "Cella gia' occupata!" << RESET << '\n';
+            cout << RED << "Input errato!" << RESET << '\n';
             restart = true;
         }
     }while(restart);
+
+    return true;
 }
 
 // Questa funzione controlla se la griglia di gioco 'mat' è completamente riempita, ossia se non ci sono più celle vuote.
@@ -100,7 +116,12 @@ int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
         cin >> col /*colonne*/;
 
         if(col == -1){
-            inputMossa(mat, modificheSudoku);
+            int returnInputMossa = inputMossa(mat, modificheSudoku);
+            if(returnInputMossa == 1){
+                return 1;
+            } else if(returnInputMossa == 2){
+                return 2;
+            }
             break;
         }
 
