@@ -85,7 +85,20 @@ int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
     do {
         restart = false;
         cout << ORANGE << "Inserisci la posizione in cui vuoi inserire il numero (r-c): \n" << RESET;
-        cin >> rig /*righe*/ >> col /*colonne*/;
+        cin >> rig /*righe*/;
+
+        if(rig == -1){
+            inputMossa(mat, modificheSudoku);
+            break;
+        }
+
+        cin >> col /*colonne*/;
+
+        if(col == -1){
+            inputMossa(mat, modificheSudoku);
+            break;
+        }
+
 
         if ((rig < min || rig > max) || (col < min || col > max)) { //controllo dati dentro alla tabella
             cout << RED << "Input errato! \n" << RESET;
