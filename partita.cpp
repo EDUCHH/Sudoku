@@ -92,7 +92,7 @@ int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
         } else if(numero == -2){
             return 2;
         } else if (numero < min || numero > max) {
-            cout << RED << "Input errato! " << RESET;
+            cout << RED << "Input errato! " << RESET << '\n';
         }
     } while (numero < min || numero > max);
 
