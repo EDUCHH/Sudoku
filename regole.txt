@@ -1,7 +1,24 @@
-Regole di Sudoku
+Regole di Sudoku:
 
 1. La griglia di gioco e' composta da una griglia 9x9 suddivisa in 9 regioni 3x3.
 2. L'obiettivo e' riempire la griglia in modo che ogni riga, ogni colonna e ogni regione 3x3 contenga tutti i numeri da 1 a 9 senza ripetizioni.
 3. Inizialmente, alcune caselle della griglia contengono numeri (dati) e il giocatore deve completare la griglia rispettando le regole.
 4. Durante il gioco, il giocatore inserisce i numeri mancanti nella griglia, uno alla volta, fino a completare l'intera griglia.
 5. Il Sudoku ha una sola soluzione e puo' essere risolto utilizzando la logica e l'eliminazione dei numeri possibili in base alle regole del gioco.
+
+
+
+Regole del programma:
+
+1. Quando si sta inserendo un numero -1 per tornare al menu.
+2. Quando si sta inserendo un numero -2 per avere un suggerimento, c'e' un suggerimento disponibile ogni 10 numeri da inserire.
+3. Quando si sta inserendo le coordinate inserire -1 per tornale alla fase di inserimento del numero.
+4. Possibilita' di sostituire i numeri inseriti dall'utente
+
+
+
+Output numeri sudoku:
+
+1. In blu vengono stampati i numeri inseriti dal programma e che NON si possono modificare
+2. in viola vengono stampati gli 0, ovvero gli spazi vuoti che vanno riempiti
+3. In arancione vengono stampati i numeri inseriti dall'utente e si possono modificare
