@@ -1,4 +1,3 @@
-
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -164,4 +163,26 @@ void stampaStorico() {
     cout << "perdite: " << perdite << endl;
     cout << "totali: " << vittorie + perdite << endl;
     cout << RESET;
+}
+
+// Questa funzione chiede la conferma all'utente prima di eliminare il file storico.txt.
+// Se l'utente insiste allora viene eliminato e creato di nuovo.
+void resetStorico() {
+    char scelta;
+
+    do {
+        cout << RED << "Sei sicuro di resettare lo storico? [s/n]: " << RESET;
+        cin >> scelta;
+    } while (scelta != 's' && scelta != 'n');
+    
+    if (scelta == 's') {
+        remove("storico.txt");
+
+        ofstream storico("storico.txt");
+
+        storico << "0\n0";
+        storico.close();
+
+        cout << RED << "Lo storico è stato resettato \n" << RESET;
+    }    
 }

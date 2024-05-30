@@ -151,7 +151,8 @@ int menu() {
     cout << "2. Carica una partita \n";
     cout << "3. Vedere le regole \n";
     cout << "4. Storico delle partite \n";
-    cout << "5. Esci dal gioco \n";
+    cout << "5. Resetta lo storico \n";
+    cout << "6. Esci dal gioco \n";
     cout << RESET;
 
     do{
@@ -195,6 +196,10 @@ int main () {
                 stampaStorico();
                 break;
             case 5:
+                //Resettare lo storico
+                resetStorico();
+                break;
+            case 6:
                 //Esci dal gioco
                 return 0;
         }
