@@ -13,12 +13,13 @@ Regole del programma:
 1. Quando si sta inserendo un numero -1 per tornare al menu.
 2. Quando si sta inserendo un numero -2 per avere un suggerimento, c'e' un suggerimento disponibile ogni 10 numeri da inserire.
 3. Quando si sta inserendo le coordinate inserire -1 per tornale alla fase di inserimento del numero.
-4. Possibilita' di sostituire i numeri inseriti dall'utente
+4. Possibilita' di sostituire i numeri inseriti dall'utente.
+5. Quando si inserisce le coordinate per un suggerimento inserendo -1 si torna indetro senza usare il suggerimento.
 
 
 
 Output numeri sudoku:
 
-1. In blu vengono stampati i numeri inseriti dal programma e che NON si possono modificare
-2. in viola vengono stampati gli 0, ovvero gli spazi vuoti che vanno riempiti
-3. In arancione vengono stampati i numeri inseriti dall'utente e si possono modificare
+1. In blu vengono stampati i numeri inseriti dal programma e che NON si possono modificare.
+2. in viola vengono stampati gli 0, ovvero gli spazi vuoti che vanno riempiti.
+3. In arancione vengono stampati i numeri inseriti dall'utente e si possono modificare.
