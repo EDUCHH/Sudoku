@@ -92,7 +92,7 @@ int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
             restart = true;
         } else {
             if (mat[rig][col] != 0) {
-                if(modificheSudoku[rig][col] = 1){
+                if(modificheSudoku[rig][col] == 1){
                     mat[rig][col] = numero;
                     break;
                 }
