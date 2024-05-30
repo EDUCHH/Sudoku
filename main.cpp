@@ -144,7 +144,7 @@ void avviaPartita(bool partitaNuova) {
 // 5.  Esci dal gioco
 // L'utente è tenuto a inserire un'opzione valida compresa tra 1 e 5.
 int menu() {
-    int min = 1, max = 5, opzione;
+    int min = 1, max = 6, opzione;
 
     cout << YELLOW;
     cout << "1. Avvia una partita \n";
