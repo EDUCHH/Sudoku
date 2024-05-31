@@ -46,7 +46,8 @@ Lo storico viene aggiornato solo quando il giocatore completa un sudoku. Di cons
 
 ## Doxygen
 Doxygen può essere utilizzato per generare le documentazioni di questo progetto.
-Le documentazioni una volta generate sono salvati nella cartella `./doxygen`
+
+Le documentazioni una volta generate sono salvate nella cartella `./doxygen`
 
 Comando da usare per generare le documentazioni: `doxygen Doxyfile`
 
