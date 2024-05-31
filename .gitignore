@@ -39,6 +39,9 @@ CMakeLists.txt
 /.vscode
 /testing
 
+# Doxygen
+/doxygen
+
 #Salvataggio
 soluzioneSudoku.txt
 storico.txt

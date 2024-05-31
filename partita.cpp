@@ -3,9 +3,14 @@
 
 using namespace std;
 
-// Funzione per permettere all'utente di scegliere se giocare come giocatore o far risolvere il Sudoku dalla CPU.
-// Questa funzione richiede all'utente di inserire la scelta del giocatore, dove 0 rappresenta la CPU e 1 rappresenta il Player.
-// L'utente è tenuto a inserire un'opzione valida compresa tra 0 e 1.
+/**
+ * @brief Funzione per permettere all'utente di scegliere se giocare come giocatore o far risolvere il Sudoku dalla CPU.
+ * 
+ * Questa funzione richiede all'utente di inserire la scelta del giocatore, dove 0 rappresenta la CPU e 1 rappresenta il Player.
+ * L'utente è tenuto a inserire un'opzione valida compresa tra 0 e 1.
+ * 
+ * @return Il valore scelto dall'utente (0 per la CPU, 1 per il Player).
+ */
 int sceltaGiocatore() {
     int min = 0, max = 1;
     int giocatore;
@@ -22,6 +27,15 @@ int sceltaGiocatore() {
     return giocatore;
 }
 
+/**
+ * @brief La funzione permette all'utente di inserire un suggerimento nella griglia del Sudoku in base alle coordinate specificate.
+ * Se l'utente inserisce -1 come coordinata, la funzione restituisce false.
+ * 
+ * @param sudoku La griglia del Sudoku in cui inserire il suggerimento.
+ * @param soluzioneSudoku La griglia contenente la soluzione del Sudoku.
+ *
+ * @return Restituisce true se il suggerimento è stato inserito correttamente, altrimenti restituisce false.
+ */
 bool suggerimento(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     int min=0, max=8;
     int rig, col;
@@ -58,8 +72,13 @@ bool suggerimento(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM]){
     return true;
 }
 
-// Questa funzione controlla se la griglia di gioco 'mat' è completamente riempita, ossia se non ci sono più celle vuote.
-// False indica che la partita non è terminata, mentre true indica il caso contrario.
+/**
+ * @brief Questa funzione verifica se la griglia di gioco 'mat' non contiene più celle vuote.
+ * 
+ * @param mat La griglia di gioco da controllare.
+ *
+ * @return Restituisce false se la partita non è terminata (ci sono ancora celle vuote), altrimenti restituisce true.
+ */
 bool partitaTerminata(int mat[DIM][DIM]) {
     for (int i = 0; i < DIM; i++) {
         for (int j = 0; j < DIM; j++) {
@@ -72,16 +91,24 @@ bool partitaTerminata(int mat[DIM][DIM]) {
     return true;
 }
 
-// Funzione per gestire l'input della mossa del giocatore nel Sudoku.
-// Questa funzione richiede all'utente di inserire un numero da 1 a 9 e la posizione in cui inserirlo nella griglia di gioco.
-// L'utente è guidato a inserire un numero valido e a posizionarlo in una cella vuota della griglia.
+/**
+ * @brief Gestisce l'input della mossa del giocatore nel Sudoku.
+ * 
+ * Questa funzione richiede all'utente di inserire un numero da 1 a 9 e la posizione in cui inserirlo nella griglia di gioco.
+ * L'utente è guidato a inserire un numero valido e a posizionarlo in una cella vuota della griglia.
+ * 
+ * @param mat La griglia di gioco del Sudoku.
+ *
+ * @param modificheSudoku La griglia che tiene traccia delle modifiche effettuate dall'utente.
+ * @return Restituisce 0 se l'input è stato gestito correttamente, 1 se l'utente ha inserito -1 come input per uscire, 2 se l'utente ha inserito -2 come input per il suggerimento.
+ */
 int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
     int numero;
     int min, max;
     bool restart;
     int rig, col;
 
-    //Input numero
+    // Input numero
     min = 1; max = 9;
     do {
         cout << ORANGE << "Inserisci un numero: " << RESET;
@@ -96,12 +123,14 @@ int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
         }
     } while (numero < min || numero > max);
 
-    //posizione numero
+    // Posizione numero
     min = 0; max = 8;
     do {
         restart = false;
         cout << ORANGE << "Inserisci la posizione in cui vuoi inserire il numero (r-c): \n" << RESET;
-        cin >> rig /*righe*/;
+
+        // Righe
+        cin >> rig;
 
         if(rig == -1){
             int returnInputMossa = inputMossa(mat, modificheSudoku);
@@ -113,7 +142,8 @@ int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
             break;
         }
 
-        cin >> col /*colonne*/;
+        // Colonne.
+        cin >> col; 
 
         if(col == -1){
             int returnInputMossa = inputMossa(mat, modificheSudoku);
@@ -125,8 +155,8 @@ int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
             break;
         }
 
-
-        if ((rig < min || rig > max) || (col < min || col > max)) { //controllo dati dentro alla tabella
+        // Controllo dati dentro alla tabella.
+        if ((rig < min || rig > max) || (col < min || col > max)) {
             cout << RED << "Input errato! \n" << RESET;
             restart = true;
         } else {
@@ -147,9 +177,17 @@ int inputMossa(int mat[DIM][DIM], int modificheSudoku[DIM][DIM]) {
     return 0;
 }
 
-// Funzione per verificare se la griglia di gioco corrente corrisponde alla soluzione del Sudoku.
-// Questa funzione confronta ogni cella della griglia di gioco 'mat' con la corrispondente cella nella soluzione del Sudoku 'soluzioneSudoku'.
-// Restituisce true se la griglia di gioco è corretta e corrisponde alla soluzione, altrimenti restituisce false.
+/**
+ * @brief Verifica se la griglia di gioco corrente corrisponde alla soluzione del Sudoku.
+ * 
+ * Questa funzione confronta ogni cella della griglia di gioco 'mat' con la corrispondente cella nella soluzione del Sudoku 'soluzioneSudoku'.
+ * Restituisce true se la griglia di gioco è corretta e corrisponde alla soluzione, altrimenti restituisce false.
+ * 
+ * @param soluzioneSudoku La griglia contenente la soluzione del Sudoku.
+ * @param mat La griglia di gioco da verificare.
+ *
+ * @return Restituisce true se la griglia di gioco corrisponde alla soluzione, altrimenti restituisce false.
+ */
 bool verificaVittoria(int soluzioneSudoku[DIM][DIM], int mat[DIM][DIM]) {
     for (int i = 0; i < DIM; i++) {
         for (int j = 0; j < DIM; j++) {
@@ -162,8 +200,14 @@ bool verificaVittoria(int soluzioneSudoku[DIM][DIM], int mat[DIM][DIM]) {
     return true;
 }
 
-// Questa funzione richiede all'utente di inserire un numero compreso tra 1 e 40 che rappresenta il livello di difficoltà del gioco.
-// L'utente è tenuto a inserire un numero valido all'interno di questo intervallo.
+/**
+ * @brief Richiede all'utente di inserire un numero che rappresenta il livello di difficoltà del gioco.
+ * 
+ * Questa funzione richiede all'utente di inserire un numero compreso tra 1 e 40.
+ * L'utente è tenuto a inserire un numero valido all'interno di questo intervallo.
+ * 
+ * @return Il numero che rappresenta il livello di difficoltà scelto dall'utente.
+ */
 int inputDifficolta() {
     int numero;
 
@@ -175,8 +219,13 @@ int inputDifficolta() {
     return numero;
 }
 
-// Questa funzione confronta la griglia di gioco 'sudoku' con la soluzione del Sudoku 'soluzioneSudoku' e stampa gli errori, se presenti.
-// Viene mostrata la posizione dell'errore e il numero corretto che dovrebbe essere presente in quella cella.
+/**
+ * @brief Questa funzione confronta la griglia di gioco 'sudoku' con la soluzione del Sudoku 'soluzioneSudoku' e stampa gli errori, se presenti.
+ * Viene mostrata la posizione dell'errore e il numero corretto che dovrebbe essere presente in quella cella.
+ * 
+ * @param soluzioneSudoku La griglia contenente la soluzione del Sudoku.
+ * @param sudoku La griglia di gioco da confrontare con la soluzione.
+ */
 void outputEventualiErrori(int soluzioneSudoku[DIM][DIM], int sudoku[DIM][DIM]){
     if (!verificaVittoria(soluzioneSudoku, sudoku)){
         cout << RED << "Ecco gli errori: " << RESET << '\n';

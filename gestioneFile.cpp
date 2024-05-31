@@ -5,15 +5,19 @@
 
 using namespace std;
 
-// Questa funzione controlla se il file "storico.txt" esiste. Se non esiste crea i file "sudoku.txt", "soluzioneSudoku.txt" e "storico.txt"
-// Il file "storico.txt" viene inizializzato con valore 0 0;
-// I file creati sono "sudoku.txt" per la griglia di gioco, "soluzioneSudoku.txt" per la soluzione del Sudoku e "storico.txt" per lo storico delle partite.
+/**
+ * @brief Controlla l'esistenza del file "storico.txt" e crea i file necessari per il gioco del Sudoku se non esiste.
+ *
+ * Se il file "storico.txt" non esiste, vengono creati i file "sudoku.txt", "soluzioneSudoku.txt", "modificheSudoku.txt", "suggerimentiDisponibili.txt" e "storico.txt".
+ * Il file "storico.txt" viene inizializzato con i valori 0 0.
+ */
 void creazioneFile() {
     ifstream fileInput("storico.txt");
 
-    if(!fileInput.is_open()){
+    if (!fileInput.is_open()) {
         ofstream fileOutput;
-        
+
+        // Crea i file necessari per il gioco del Sudoku se non esistono.
         fileOutput.open("sudoku.txt");
         fileOutput.close();
 
@@ -26,17 +30,21 @@ void creazioneFile() {
         fileOutput.open("suggerimentiDisponibili.txt");
         fileOutput.close();
 
+        // Inizializza il file "storico.txt" con i valori 0 0.
         fileOutput.open("storico.txt");
         fileOutput << "0\n0";
         fileOutput.close();
-
     } else {
         fileInput.close();
     }
 }
 
-// Questa funzione legge il numero di partite vinte e perse dal file "storico.txt", aggiorna i contatori in base al risultato dell'ultima partita
-// e sovrascrive i valori nel file "storico.txt" con i nuovi conteggi.
+/**
+ * @brief Aggiorna i contatori delle partite vinte e perse nel file "storico.txt" in base al risultato dell'ultima partita.
+ * Legge i contatori attuali dal file, incrementa il contatore corretto in base al risultato della partita e sovrascrive i valori nel file.
+ *
+ * @param soluzione Booleano che indica se il giocatore ha vinto (true) o perso (false) l'ultima partita.
+ */
 void aggiornaStorico(bool soluzione){
     int partiteVinte, partitePerse;
 
@@ -59,10 +67,24 @@ void aggiornaStorico(bool soluzione){
     fileOutput.close();
 }
 
-// Questa funzione salva la griglia di gioco attuale 'sudoku' e la sua soluzione 'soluzioneSudoku' nei file "sudoku.txt" e "soluzioneSudoku.txt" rispettivamente.
-// Ogni numero della griglia viene separato da uno spazio e ogni riga termina con un carattere di nuova linea.
+/**
+ * @brief Salva la partita attuale.
+ *
+ * sudoku >> "sudoku.txt".
+ *
+ * soluzioneSudoku >> "soluzioneSudoku.txt".
+ *
+ * modificheSudoku >> "modificheSudoku.txt".
+ *
+ * suggerimentiDisponibili >> "suggerimentiDisponibili.txt".
+ *
+ * @param sudoku La griglia di gioco attuale da salvare.
+ * @param soluzioneSudoku La soluzione del Sudoku da salvare.
+ * @param modificheSudoku Le modifiche apportate alla griglia di gioco da salvare.
+ * @param suggerimentiDisponibili Il numero di suggerimenti disponibili da salvare.
+ */
 void salvaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM], int modificheSudoku[DIM][DIM], int suggerimentiDisponibili){
-    //output mat
+    // Output per la griglia di gioco, la soluzione del Sudoku e le modifiche.
     ofstream fileSudoku("sudoku.txt");
     ofstream fileSoluzioneSudoku("soluzioneSudoku.txt");
     ofstream fileModificheSudoku("modificheSudoku.txt");
@@ -82,13 +104,28 @@ void salvaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM], int modif
     fileSoluzioneSudoku.close();
     fileModificheSudoku.close();
 
+    // Output per i suggerimenti disponibili.
     ofstream fileSuggerimentiDisponibili("suggerimentiDisponibili.txt");
     fileSuggerimentiDisponibili << suggerimentiDisponibili;
     fileSuggerimentiDisponibili.close();
 }
 
-// Questa funzione carica la griglia di gioco salvata nel file "sudoku.txt" nella matrice 'sudoku' e la relativa soluzione salvata in "soluzioneSudoku.txt"
-// nella matrice 'soluzioneSudoku'.
+/**
+ * @brief Carica la partita da file.
+ *
+ * "sudoku.txt" >> sudoku.
+ *
+ * "soluzioneSudoku.txt" >> soluzioneSudoku.
+ *
+ * "modificheSudoku.txt" >> modificheSudoku.
+ *
+ * "suggerimentiDisponibili.txt" >> suggerimentiDisponibili.
+ *
+ * @param sudoku La matrice in cui caricare la griglia di gioco.
+ * @param soluzioneSudoku La matrice in cui caricare la soluzione del Sudoku.
+ * @param modificheSudoku La matrice in cui caricare le modifiche alla griglia di gioco.
+ * @param suggerimentiDisponibili Il numero di suggerimenti disponibili da caricare.
+ */
 void caricaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM], int modificheSudoku[DIM][DIM], int suggerimentiDisponibili) {
     ifstream fileSudoku("sudoku.txt");
     ifstream fileSoluzioneSudoku("soluzioneSudoku.txt");
@@ -111,7 +148,11 @@ void caricaPartita(int sudoku[DIM][DIM], int soluzioneSudoku[DIM][DIM], int modi
     fileSuggerimentiDisponibili.close();
 }
 
-// Questa funzione carica la soluzione del Sudoku dalla matrice salvata nel file "soluzioneSudoku.txt" nella matrice 'soluzioneSudoku'.
+/**
+ * @brief Carica la soluzione del Sudoku dalla matrice salvata nel file "soluzioneSudoku.txt" nella matrice 'soluzioneSudoku'.
+ *
+ * @param soluzioneSudoku La matrice in cui caricare la soluzione del Sudoku.
+ */
 void caricaSoluzione(int soluzioneSudoku[DIM][DIM]){
     ifstream fileSoluzioneSudoku("soluzioneSudoku.txt");
 
@@ -124,11 +165,14 @@ void caricaSoluzione(int soluzioneSudoku[DIM][DIM]){
     fileSoluzioneSudoku.close();
 }
 
-// Questa funzione stampa il contetune del file.
-// Il nome del file è contenuto nella variabile nomeFile di tipo string.
-// I file che vengono stampati attraverso questa funzione sono: regole.txt e asciiArt.txt.
-// regole.txt contiene le regole del sudoku.
-// asciiArt.txt contiene la parola "sudoku" stilizzato sottoforma di ascii art. 
+/**
+ * @brief Stampa il contenuto di un file specificato.
+ * I file che possono essere stampati sono: "regole.txt" e "asciiArt.txt".
+ * regole.txt contiene le regole del Sudoku.
+ * asciiArt.txt contiene la parola "sudoku" stilizzata sotto forma di ASCII art.
+ *
+ * @param nomeFile Il nome del file da stampare.
+ */
 void stampaFile(string nomeFile) {
     ifstream file;
     string testo;
@@ -146,9 +190,10 @@ void stampaFile(string nomeFile) {
     file.close();
 }
 
-// Funzione per stampare lo storico delle partite con il numero di vittorie, perdite e partite totali.
-// Questa funzione apre il file "storico.txt" che contiene il numero di partite vinte e perse, e stampa queste informazioni a schermo.
-// In base alle vincite e alle perdite viene calcolato e stampato il numero di partite totali.
+/**
+ * @brief Questa funzione apre il file "storico.txt" che contiene il numero di partite vinte e perse, e stampa queste informazioni a schermo.
+ * In base alle vincite e alle perdite viene calcolato e stampato il numero totale di partite.
+ */
 void stampaStorico() {
     ifstream storico;
     int vittorie, perdite;
@@ -165,8 +210,10 @@ void stampaStorico() {
     cout << RESET;
 }
 
-// Questa funzione chiede la conferma all'utente prima di eliminare il file storico.txt.
-// Se l'utente insiste allora viene eliminato e creato di nuovo.
+/**
+ * @brief Questa funzione chiede all'utente la conferma prima di eliminare il file "storico.txt".
+ * Se l'utente conferma, il file viene eliminato e ricreato con i valori iniziali di vittorie e perdite impostati a 0.
+ */
 void resetStorico() {
     char scelta;
 
