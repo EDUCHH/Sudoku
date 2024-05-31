@@ -42,7 +42,13 @@ Quando si sta inserendo un numero -2 per avere un suggerimento, c'è un suggerim
 Quando si sta inserendo le coordinate inserire -1 per tornale alla fase di inserimento del numero.
 
 ## Storico
-lo storico viene aggiornato solo quando il giocatore completa un sudoku. Di conseguenza, se la CPU risolve il sudoku, lo storico non viene aggiornato.
+Lo storico viene aggiornato solo quando il giocatore completa un sudoku. Di conseguenza, se la CPU risolve il sudoku, lo storico non viene aggiornato.
+
+## Doxygen
+Doxygen può essere utilizzato per generare le documentazioni di questo progetto.
+Le documentazioni una volta generate sono salvati nella cartella `./doxygen`
+
+Comando da usare per generare le documentazioni: `doxygen Doxyfile`
 
 ## Licenza
 Il progetto è distribuito con **licenza 0BSD**. Controllare il file **[LICENSE](LICENSE)** per i dettagli.
