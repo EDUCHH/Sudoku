@@ -9,27 +9,35 @@
 
 using namespace std;
 
-// Funzione per stampare una griglia di Sudoku 9x9 con i numeri forniti nella matrice 'mat'.
-// L'output della griglia è colorata in colori diversi
-// Lo 0 che indica una cella vuota è colorato in viola
-// Il numero inserito correttamente è colorato in blu
-// Il numero inserito non corretto è colorato in rosso
+/**
+ * @brief Stampa una griglia di Sudoku 9x9 con numeri colorati in base al loro stato.
+ *
+ * Questa funzione stampa una griglia di Sudoku 9x9 utilizzando i numeri forniti nella matrice 'mat'.
+ * L'output della griglia è colorato come segue:
+ * - Le celle vuote (indicate da 0) sono colorate in viola.
+ * - I numeri corretti sono colorati in blu.
+ * - I numeri errati sono colorati in rosso.
+ *
+ * @param mat La matrice 9x9 contenente i numeri del Sudoku.
+ * @param soluzione Indica se la matrice rappresenta una soluzione corretta.
+ * @param modificheSudoku La matrice 9x9 che tiene traccia delle modifiche apportate al Sudoku.
+ */
 void stampaSudoku(int mat[DIM][DIM], bool soluzione, int modificheSudoku[DIM][DIM]){
-    //input file
+    // input file
     int soluzioneSudoku[DIM][DIM];
     caricaSoluzione(soluzioneSudoku);
-    //output prima riga
+    // output prima riga
     cout << GREEN << "    0 1 2    3 4 5    6 7 8\n";
     cout << RED << "  " << "+-------------------------+\n";
-    //ciclo che si ripete per le righe
+    // ciclo che si ripete per le righe
     for (int i = 0; i < 9; ++i) {
-        //output primo carattere riga
+        // output primo carattere riga
         cout << GREEN << i << RED << " | ";
         // ciclio che si ripete per il numero di colonne
         for (int j = 0; j < 9; ++j) {
             // output divisore ogni 3 colonne tranne la prima
             if (j % 3 == 0 && j != 0) cout << RED << "|| ";
-            // il numero della matrice viene stampato in viola se e' zero o blu se non e' zero e non va sostituito
+            // il numero della matrice viene stampato in viola se è zero o blu se non è zero e non va sostituito
             if (mat[i][j] == 0) {
                 cout << PURPLE << mat[i][j] << " ";
             } else if(modificheSudoku[i][j] == 1){
@@ -40,22 +48,26 @@ void stampaSudoku(int mat[DIM][DIM], bool soluzione, int modificheSudoku[DIM][DI
                 cout << BLUE << mat[i][j] << " ";
             }
         }
-        //output ultimo carattere riga
+        // output ultimo carattere riga
         cout << RED << "| " << GREEN << i << RED << "\n";
-        //output divisore ogni 3 righe tranne l'ultima
+        // output divisore ogni 3 righe tranne l'ultima
         if (i % 3 == 2 && i != 8) {
             cout << RED << "  " <<  "|-------++-------++-------|\n";
         }
     }
-    //output ultima riga
+    // output ultima riga
     cout << RED << "  " << "+-------------------------+\n" << RESET;
     cout << GREEN << "    0 1 2    3 4 5    6 7 8\n";
 }
 
-// Funzione per avviare una partita di Sudoku.
-// Questa funzione gestisce il flusso di gioco per una partita di Sudoku, consentendo al giocatore di giocare o alla CPU di risolvere il Sudoku.
-// Se il parametro 'partitaNuova' è true, viene inizializzata una nuova partita con una griglia generata casualmente.
-// Se 'partitaNuova' è false, viene caricata una partita esistente da file.
+/**
+ * @brief Funzione per avviare una partita di Sudoku.
+ * Questa funzione gestisce il flusso di gioco per una partita di Sudoku, consentendo al giocatore di giocare o alla CPU di risolvere il Sudoku.
+ * Se il parametro 'partitaNuova' è true, viene inizializzata una nuova partita con una griglia generata casualmente.
+ * Se 'partitaNuova' è false, viene caricata una partita esistente da file.
+ *
+ * @param partitaNuova Indica se si tratta di una nuova partita o di una partita esistente da caricare.
+ */
 void avviaPartita(bool partitaNuova) {
     int soluzioneSudoku[DIM][DIM];
     int sudoku[DIM][DIM];
@@ -87,7 +99,7 @@ void avviaPartita(bool partitaNuova) {
     }
 
     if (sceltaGiocatore()/* viene scelto il giocatore, player o cpu */) {
-        //player
+        // player
         cout << GREEN << "Ci sono "<< RESET << suggerimentiDisponibili << GREEN << " suggerimenti disponibili!" << RESET << '\n';
         salvaPartita(sudoku, soluzioneSudoku, modificheSudoku, suggerimentiDisponibili); // viene salvata la partita su file
 
@@ -135,14 +147,19 @@ void avviaPartita(bool partitaNuova) {
     }
 }
 
-// Funzione per visualizzare il menu del gioco Sudoku e ottenere l'opzione scelta dall'utente.
-// Il menu mostra le seguenti opzioni:
-// 1.  Avvia una partita
-// 2.  Carica una partita
-// 3.  Vedere le regole
-// 4.  Storico delle partite
-// 5.  Esci dal gioco
-// L'utente è tenuto a inserire un'opzione valida compresa tra 1 e 5.
+/**
+ * @brief Funzione per visualizzare il menu del gioco Sudoku e ottenere l'opzione scelta dall'utente.
+ * Il menu mostra le seguenti opzioni:
+ * 1. Avvia una partita
+ * 2. Carica una partita
+ * 3. Vedere le regole
+ * 4. Storico delle partite
+ * 5. Resetta lo storico
+ * 6. Esci dal gioco
+ * L'utente è tenuto a inserire un'opzione valida compresa tra 1 e 5.
+ *
+ * @return L'opzione scelta dall'utente.
+ */
 int menu() {
     int min = 1, max = 6, opzione;
 
@@ -167,40 +184,48 @@ int menu() {
     return opzione;
 }
 
-// Funzione principale del gioco Sudoku.
-// Questa funzione gestisce il menu principale del gioco, consentendo all'utente di avviare una partita, caricare una partita esistente,
-// visualizzare le regole del gioco o consultare lo storico delle partite.
+/**
+ * @file
+ * Funzione principale del gioco Sudoku.
+ * Questa funzione gestisce il menu principale del gioco, consentendo all'utente di avviare una partita, caricare una partita esistente,
+ * visualizzare le regole del gioco o consultare lo storico delle partite.
+ */
+
+/**
+ * Funzione principale del programma.
+ * @return 0 se il programma è terminato correttamente.
+ */
 int main () {
-    stampaFile("asciiArt.txt");
-    creazioneFile(); //verifica se ci sono i file e in caso li crea
-    srand(time(NULL));
+    stampaFile("asciiArt.txt"); // Stampa il file ASCII art all'avvio del gioco
+    creazioneFile(); // Verifica se ci sono i file e li crea se necessario
+    srand(time(NULL)); // Inizializza il generatore di numeri casuali
 
     while (true) {
-        int opzione = menu();
+        int opzione = menu(); // Mostra il menu e ottiene l'opzione scelta dall'utente
 
         switch (opzione) {
             case 1:
-                //Avvia una partita
+                // Avvia una partita
                 avviaPartita(true);
                 break;
             case 2:
-                //Carica una partita
+                // Carica una partita
                 avviaPartita(false);
                 break;
             case 3:
-                //Vedere le regole
+                // Visualizza le regole del gioco
                 stampaFile("regole.txt");
                 break;
             case 4:
-                //Storico delle partite
+                // Mostra lo storico delle partite
                 stampaStorico();
                 break;
             case 5:
-                //Resettare lo storico
+                // Resetta lo storico delle partite
                 resetStorico();
                 break;
             case 6:
-                //Esci dal gioco
+                // Esci dal gioco
                 return 0;
         }
     }
